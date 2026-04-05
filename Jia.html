@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google</title>
+    <title>bulan sm tanggal jadian</title>
+
     <style>
-        /* Menggunakan font standar/biasa agar tidak lebay */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: #202124; 
-            color: #e8eaed; 
-            font-family: arial, sans-serif; 
+
+        body {
+            background-color: #cfe8ff; /* 💙 biru pastel */
+            color: #1f3a5f; /* 💙 biru denim tua */
+            font-family: arial, sans-serif;
             overflow: hidden;
         }
 
-        /* --- Halaman Depan (Google) --- */
+        /* --- Halaman Depan --- */
         #google-page {
             display: flex;
             flex-direction: column;
@@ -23,53 +24,66 @@
             height: 100vh;
             transition: 0.5s;
         }
-        .logo { font-size: 3rem; font-weight: bold; margin-bottom: 25px; letter-spacing: -1px; }
-        .logo span:nth-child(1) { color: #4285F4; }
-        .logo span:nth-child(2) { color: #EA4335; }
-        .logo span:nth-child(3) { color: #FBBC05; }
-        .logo span:nth-child(4) { color: #4285F4; }
-        .logo span:nth-child(5) { color: #34A853; }
-        .logo span:nth-child(6) { color: #EA4335; }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            color: #1f3a5f; /* denim tua */
+            text-align: center;
+        }
 
         .search-container {
             width: 90%;
             max-width: 500px;
-            background: #3c4043;
+            background: #b8dbff; /* pastel biru lebih soft */
             border-radius: 24px;
             padding: 12px 20px;
             display: flex;
             align-items: center;
         }
+
         input {
             background: none;
             border: none;
             width: 100%;
             outline: none;
             font-size: 1rem;
-            color: #fff;
+            color: #1f3a5f; /* denim tua */
         }
 
-        /* --- Halaman Surat (Sangat Sederhana) --- */
+        /* --- Halaman Surat --- */
         #letter-page {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: #000;
+            background: #cfe8ff; /* pastel juga */
             z-index: 100;
             padding: 50px 30px;
             text-align: left;
         }
 
         .header-box { margin-bottom: 40px; }
-        .name { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
-        .sub { font-size: 0.9rem; font-weight: bold; color: #888; }
+
+        .name {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1f3a5f;
+            margin-bottom: 5px;
+        }
+
+        .sub {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2f5f8f;
+        }
 
         .message-text {
             font-size: 1.25rem;
             font-weight: 700;
             line-height: 1.6;
-            color: #eee;
+            color: #1f3a5f;
             animation: fadeIn 0.8s ease;
         }
 
@@ -79,7 +93,7 @@
             left: 30px;
             font-size: 0.75rem;
             font-weight: 900;
-            color: #444;
+            color: #2f5f8f;
             text-transform: uppercase;
             letter-spacing: 3px;
             cursor: pointer;
@@ -91,10 +105,12 @@
         }
     </style>
 </head>
+
 <body>
 
     <div id="google-page">
-        <div class="logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+        <div class="logo">(bulan sama tanggal jadian dulu)</div>
+
         <div class="search-container">
             <input type="text" id="search-box" placeholder="Ketik kode rahasia..." autocomplete="off">
         </div>
@@ -106,8 +122,7 @@
             <p class="sub">dibaca yaa ini tu penting banget !!</p>
         </div>
 
-        <div id="content">
-            </div>
+        <div id="content"></div>
 
         <div class="btn-next" id="next-btn" onclick="nextSlide()">[ Klik untuk lanjut ]</div>
     </div>
@@ -131,7 +146,6 @@
 
         let current = 0;
 
-        // Cek input 0725
         searchInput.addEventListener('input', () => {
             if (searchInput.value === "0725") {
                 setTimeout(() => {
@@ -145,7 +159,6 @@
         });
 
         function nextSlide() {
-            // Sembunyikan header setelah klik pertama agar fokus ke teks
             if (current === 0) headerDiv.style.display = "none";
 
             if (current < slides.length) {
@@ -158,5 +171,6 @@
             }
         }
     </script>
+
 </body>
-            </html>
+    </html>
