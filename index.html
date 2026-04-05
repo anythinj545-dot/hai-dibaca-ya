@@ -1,191 +1,29 @@
+<div class="night"></div>
 
+<div class="text">
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>For You</title>
+<div class="wrapper">
 
-<style>
-body {
-margin:0;
-font-family: 'Georgia', serif;
-color:white;
-text-align:center;
-overflow:hidden;
-background: radial-gradient(circle at center, #2a2a2a, #000);
-}
+<div class="lid one"></div>
 
-/* slide */
-.slide {
-position:absolute;
-width:100%;
-height:100%;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-opacity:0;
-transition:2s;
-padding:25px;
-}
-.active { opacity:1; }
+<div class="lid two"></div>
 
-h1 {
-font-size:28px;
-margin-bottom:15px;
-text-shadow: 0 0 15px rgba(0,0,0,0.8);
-}
+<div class="envelope"></div>
 
-p {
-max-width:85%;
-line-height:1.7;
-font-size:18px;
-color:white;
-text-shadow: 0 0 12px rgba(0,0,0,0.9);
-}
+<div class="letter">
 
-/* retak halus */
-.crack {
-position:absolute;
-width:100%;
-height:100%;
-background:url('https://i.imgur.com/8QZ7Z9L.png');
-opacity:0.04;
-pointer-events:none;
-}
+<p>Happy Valentine's Day </p>
 
-/* buah aesthetic */
-.fruit {
-position:absolute;
-font-size:22px;
-animation: float 12s linear infinite;
-opacity:0.2;
-}
-@keyframes float {
-from {transform:translateY(100vh);}
-to {transform:translateY(-10vh);}
-}
-
-/* tombol musik */
-.music-btn {
-position:absolute;
-top:20px;
-right:20px;
-background:rgba(255,255,255,0.1);
-border:none;
-color:white;
-padding:10px 15px;
-border-radius:10px;
-}
-</style>
-</head>
-
-<body>
-
-<div class="crack"></div>
-
-<!-- MUSIK -->
-<audio id="bgm" loop>
-<source src="https://files.catbox.moe/2f3k9l.mp3" type="audio/mp3">
-</audio>
-
-<button class="music-btn" onclick="playMusic()">🎧</button>
-
-<div class="slide active">
-<h1>🎂 Happy Birthday</h1>
-<p>sekalipun aku lagi sakit…<br>
-aku tetap nggak mau berhenti ngerayain kamu</p>
 </div>
 
-<div class="slide">
-<p>maaf ya kalau aku belum bisa sebaik kamu ke aku…<br>
-semoga apapun pilihan kamu, itu yang terbaik buat kamu</p>
 </div>
 
-<div class="slide">
-<p>aku udah belajar buat lepasin kamu…<br>
-jadi tolong ya, berubah jadi lebih baik dari kemarin</p>
+<div class="buttons">
+
+<button id="openBtn">Open</button>
+
+<button id="closeBtn" style="display: none;">Close</button>
+
 </div>
 
-<div class="slide">
-<p>orang tua kamu percaya sama kamu…<br>
-jangan kecewain mereka lagi ya</p>
 </div>
-
-<div class="slide">
-<p>tolong jaga pergaulan kamu…<br>
-jangan sampai masa depan kamu ikut rusak</p>
-</div>
-
-<div class="slide">
-<p>kalau dunia kamu lagi berat…<br>
-pulang aja, aku masih ada</p>
-</div>
-
-<div class="slide">
-<p>aku nggak bisa benci kamu…<br>
-bahkan setelah semua yang terjadi</p>
-</div>
-
-<div class="slide">
-<p>mungkin aku memang pantas ngerasain ini…<br>
-maaf ya kalau aku pernah jadi alasan kamu berubah seperti itu</p>
-</div>
-
-<div class="slide">
-<p>selamat ulang tahun ya…<br>
-kalau bukan buat aku, berubah lah buat masa depan kamu</p>
-</div>
-
-<div class="slide">
-<p>buat orang tua kamu…<br>
-dan buat perempuan yang nanti akan ada di samping kamu</p>
-</div>
-
-<div class="slide">
-<p>maaf ya aku cuma bisa kasih ini…<br>
-aku sempat takut kamu nggak suka</p>
-</div>
-
-<div class="slide">
-<p>tapi tolong jangan dibuang ya…<br>
-kalau kamu nggak mau, bilang ke aku aja… biar aku simpan sendiri</p>
-</div>
-
-<div class="slide">
-<p>see u…<br>
-be happy 💔</p>
-</div>
-
-<script>
-let slides = document.querySelectorAll(".slide");
-let index = 0;
-
-setInterval(() => {
-slides[index].classList.remove("active");
-index = (index + 1) % slides.length;
-slides[index].classList.add("active");
-}, 5500);
-
-// buah jatuh
-setInterval(() => {
-let f = document.createElement("div");
-f.className = "fruit";
-f.innerHTML = ["🍎","🍇","🍓","🍑"][Math.floor(Math.random()*4)];
-f.style.left = Math.random()*100 + "vw";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),12000);
-}, 800);
-
-// musik
-function playMusic() {
-document.getElementById("bgm").play();
-}
-</script>
-
-</body>
-</html>
-
-
-
