@@ -1,1 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Typing Effect</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+  }
 
+  .text {
+    color: #ff4d6d;
+    font-size: 28px;
+    white-space: pre-line;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background: #ff4d6d;
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="text" id="text"></div><span class="cursor"></span>
+
+<script>
+const lines = [
+  "i love you, im sorry",
+  "makasi buat semuanya sat.."
+];
+
+let line = 0;
+let char = 0;
+let output = "";
+
+function type() {
+  if (line >= lines.length) return;
+
+  let current = lines[line];
+
+  output = lines.slice(0, line).join("\n") + (line > 0 ? "\n" : "");
+
+  document.getElementById("text").innerHTML =
+    output + current.substring(0, char);
+
+  if (char < current.length) {
+    char++;
+    setTimeout(type, 80);
+  } else {
+    line++;
+    char = 0;
+    setTimeout(type, 800); // jeda sebelum lanjut baris
+  }
+}
+
+type();
+</script>
+
+</body>
+</html>
