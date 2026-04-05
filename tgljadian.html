@@ -3,160 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google</title>
+    <title>For Satria Wijaya</title>
+    
+    <script>
+        const CONFIG = {
+            fotoAkhirKita: "kita.jpg" // Nama file foto kamu berdua di GitHub
+        };
+    </script>
     <style>
-        /* Menggunakan font standar/biasa agar tidak lebay */
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            background-color: #202124; 
-            color: #e8eaed; 
-            font-family: arial, sans-serif; 
-            overflow: hidden;
-        }
+        body { background-color: #1a1a1a; font-family: 'Quicksand', sans-serif; color: #eee; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; transition: background 1s; }
+        
+        /* PASS PAGE */
+        #input-page { text-align: center; width: 90%; animation: fadeIn 1s; }
+        .gif-front { width: 150px; border-radius: 20px; margin-bottom: 20px; }
+        .hint-text { color: #888; font-weight: bold; margin-bottom: 15px; font-size: 0.85rem; line-height: 1.4; }
+        .input-box { background: #222; padding: 15px; border-radius: 25px; border: 2px solid #444; outline: none; font-size: 1.2rem; text-align: center; color: #fff; width: 100%; max-width: 250px; }
 
-        /* --- Halaman Depan (Google) --- */
-        #google-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20vh;
-            height: 100vh;
-            transition: 0.5s;
-        }
-        .logo { font-size: 3rem; font-weight: bold; margin-bottom: 25px; letter-spacing: -1px; }
-        .logo span:nth-child(1) { color: #4285F4; }
-        .logo span:nth-child(2) { color: #EA4335; }
-        .logo span:nth-child(3) { color: #FBBC05; }
-        .logo span:nth-child(4) { color: #4285F4; }
-        .logo span:nth-child(5) { color: #34A853; }
-        .logo span:nth-child(6) { color: #EA4335; }
+        /* KUE PAGE */
+        #kue-page { display: none; text-align: center; width: 100%; animation: fadeIn 1.5s; }
+        .kue-img { width: 220px; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 25px; filter: brightness(0.5) contrast(1.2); }
+        .nama-satria { font-size: 1.6rem; font-weight: 700; letter-spacing: 5px; color: #fff; text-transform: uppercase; min-height: 40px; }
 
-        .search-container {
-            width: 90%;
-            max-width: 500px;
-            background: #3c4043;
-            border-radius: 24px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-        }
-        input {
-            background: none;
-            border: none;
-            width: 100%;
-            outline: none;
-            font-size: 1rem;
-            color: #fff;
-        }
+        /* LETTER PAGE */
+        #letter-page { display: none; width: 100%; height: 100%; position: fixed; top: 0; left: 0; background: #000; text-align: center; padding: 50px 30px; overflow-y: auto; }
+        .message-box { font-size: 1.15rem; line-height: 1.8; font-weight: 600; color: #ccc; min-height: 150px; display: flex; align-items: center; justify-content: center; transition: all 0.5s; }
+        
+        /* FOTO KITA BERGERAK */
+        .foto-kita-container { display: none; width: 220px; height: 280px; margin: 0 auto 30px auto; position: relative; animation: moveUp 2s ease-in-out; }
+        .foto-kita-img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; border: 3px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.8); }
+        
+        .next-btn { position: fixed; bottom: 50px; left: 0; width: 100%; color: #444; font-size: 0.7rem; font-weight: 800; letter-spacing: 3px; cursor: pointer; }
 
-        /* --- Halaman Surat (Sangat Sederhana) --- */
-        #letter-page {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #000;
-            z-index: 100;
-            padding: 50px 30px;
-            text-align: left;
-        }
-
-        .header-box { margin-bottom: 40px; }
-        .name { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
-        .sub { font-size: 0.9rem; font-weight: bold; color: #888; }
-
-        .message-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.6;
-            color: #eee;
-            animation: fadeIn 0.8s ease;
-        }
-
-        .btn-next {
-            position: absolute;
-            bottom: 60px;
-            left: 30px;
-            font-size: 0.75rem;
-            font-weight: 900;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes moveUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .fade-text { animation: fadeIn 0.8s ease-in-out; }
     </style>
 </head>
 <body>
 
-    <div id="google-page">
-        <div class="logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
-        <div class="search-container">
-            <input type="text" id="search-box" placeholder="Ketik kode rahasia..." autocomplete="off">
-        </div>
+    <div id="input-page">
+        <img src="https://media.tenor.com/On7y96O6_mYAAAAi/peach-goma.gif" class="gif-front">
+        <p class="hint-text">y ak tau km gatau codenya , ini kn tgl jadian kt ms km lupa</p>
+        <input type="number" id="pass-input" class="input-box" placeholder="Ketik 07252025" autocomplete="off">
     </div>
 
-    <div id="letter-page">
-        <div class="header-box" id="header">
-            <h1 class="name">Happy Birthday, Satria Wijaya.</h1>
-            <p class="sub">dibaca yaa ini tu penting banget !!</p>
+    <div id="kue-page">
+        <img src="https://i.pinimg.com/736x/8d/e2/26/8de2262d1645398a6f3a34a8e25d0c0c.jpg" class="kue-img">
+        <h1 class="nama-satria" id="typing-name"></h1>
+        <p style="font-size: 0.6rem; color: #333; margin-top: 30px; letter-spacing: 2px;">[ TAP UNTUK LANJUT ]</p>
+    </div>
+
+    <div id="letter-page" onclick="nextSlide()">
+        <div id="photo-kita-box" class="foto-kita-container">
+            <img id="img-kita" class="foto-kita-img" src="">
         </div>
-
-        <div id="content">
-            </div>
-
-        <div class="btn-next" id="next-btn" onclick="nextSlide()">[ Klik untuk lanjut ]</div>
+        
+        <div id="text-content" class="message-box"></div>
+        <div class="next-btn" id="btn-lanjut">TAP MANA SAJA UNTUK LANJUT</div>
     </div>
 
     <script>
-        const searchInput = document.getElementById('search-box');
-        const googlePage = document.getElementById('google-page');
-        const letterPage = document.getElementById('letter-page');
-        const contentDiv = document.getElementById('content');
-        const headerDiv = document.getElementById('header');
-        const nextBtn = document.getElementById('next-btn');
+        // Masukkan foto dari CONFIG ke elemen HTML
+        document.getElementById('img-kita').src = CONFIG.fotoAkhirKita;
 
         const slides = [
-            "sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..",
-            "aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu",
-            "pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu, be happy",
-            "selamat ulang tahun ya, kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu, orang tua kamu, dan perempuan yang bakal sama kamu nanti",
-            "maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya, apalagi dijual, nanti kalo kamu gasuka kamu bisa bilang ke aku nanti buat aku aja hihi",
-            "see u, be happy."
+            "kalau boleh kuibaratkan, kubilang cinta kita bagai apel busuk.",
+            "merahnya begitu menggoda, nampak utuh dari luar.",
+            "namun dibalik kulitnya yang mengkilap itu, ada daging yang sudah lembek digerogoti belatung.",
+            "manisnya berubah masam. aku tak sudi menelannya.",
+            "tapi engkau masih menggigitnya, berpura-pura bahwa rasanya belum berubah.",
+            "aku pun berpura-pura tak mencium bau busuknya yang menyebar..",
+            "kita merawatnya dengan pupuk takut dan benih ragu, hingga akhirnya ia layu.",
+            "cinta kita seharusnya sudah mati, hanya saja kita tak cukup berani untuk menguburnya.",
+            "Happy Birthday, Satria Wijaya.",
+            "berubahlah jadi lebih baik, jangan kecewakan orang tuamu lagi.",
+            "pulanglah ke aku kalau duniamu berat..",
+            "aku gabisa benci kamu sekalipun kamu jalan sama perempuan itu.",
+            "be happy, see u."
         ];
 
         let current = 0;
+        const input = document.getElementById('pass-input');
 
-        // Cek input 0725
-        searchInput.addEventListener('input', () => {
-            if (searchInput.value === "0725") {
-                setTimeout(() => {
-                    googlePage.style.opacity = "0";
-                    setTimeout(() => {
-                        googlePage.style.display = "none";
-                        letterPage.style.display = "block";
-                    }, 500);
-                }, 300);
+        input.addEventListener('input', () => {
+            if (input.value === "07252025") {
+                document.getElementById('input-page').style.display = "none";
+                showKuePage();
             }
         });
 
-        function nextSlide() {
-            // Sembunyikan header setelah klik pertama agar fokus ke teks
-            if (current === 0) headerDiv.style.display = "none";
+        function showKuePage() {
+            document.getElementById('kue-page').style.display = "block";
+            let name = "SATRIA WIJAYA";
+            let i = 0;
+            function typeName() {
+                if (i < name.length) {
+                    document.getElementById('typing-name').innerHTML += name.charAt(i);
+                    i++; setTimeout(typeName, 200);
+                }
+            }
+            typeName();
+            document.getElementById('kue-page').onclick = function() {
+                document.getElementById('kue-page').style.display = "none";
+                document.getElementById('letter-page').style.display = "block";
+                nextSlide();
+            };
+        }
 
+        function nextSlide() {
+            const content = document.getElementById('text-content');
+            const photoKitaBox = document.getElementById('photo-kita-box');
+            
             if (current < slides.length) {
-                contentDiv.innerHTML = `<p class="message-text">${slides[current]}</p>`;
+                content.innerHTML = `<span class="fade-text">${slides[current]}</span>`;
+                
+                // Munculkan FOTO KITA pas bagian "Happy Birthday" (slide ke-8) ke bawah
+                if (current >= 8) {
+                    photoKitaBox.style.display = "block";
+                    content.style.marginTop = "0px"; // Sesuaikan posisi teks
+                }
                 current++;
-                nextBtn.innerHTML = "[ Lanjut ]";
             } else {
-                nextBtn.style.display = "none";
-                contentDiv.style.opacity = "0.3";
+                document.getElementById('btn-lanjut').innerHTML = "SELESAI.";
+                content.style.opacity = "0.5";
+                photoKitaBox.style.animation = "shake 0.5s infinite"; // Tambah animasi getar di akhir
             }
         }
     </script>
+    <style>
+        /* Animasi Getar Kecil di Akhir */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+    </style>
 </body>
 </html>
