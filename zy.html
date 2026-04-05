@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Lembah Sunyi</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#e8dcc6;
+
+  font-family: Georgia, "Times New Roman", serif;
+  color:#3b2f24;
+}
+
+/* 📖 halaman buku */
+.book{
+  width:80%;
+  max-width:650px;
+  font-size:18px;
+  line-height:2;
+  text-align:left;
+  padding:25px;
+  white-space:pre-wrap;
+}
+
+/* efek ketik pelan */
+.cursor{
+  border-right:1px solid #3b2f24;
+  animation:blink 0.8s infinite;
+}
+
+@keyframes blink{
+  50%{border-color:transparent;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="book" id="text"></div>
+
+<script>
+
+const text =
+"Di Lembah Buah Tidur Abadi, waktu berjalan pelan seperti embun di atas daun kaca.\n\n" +
+"Buah tidak jatuh, batu tidak retak, dan angin hanya lewat tanpa memaksa apa pun untuk berubah.\n\n" +
+"Semua dibiarkan tenang, seolah dunia tahu cara tidak menyakiti yang sedang diam.\n\n" +
+"Andai hati juga bisa menetap di sana, tanpa harus menjelaskan apa pun pada dunia.\n\n" +
+"@z";
+
+let i = 0;
+const speed = 60;
+const el = document.getElementById("text");
+
+function type(){
+  if(i < text.length){
+    el.innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type, speed);
+  }
+}
+
+type();
+
+</script>
+
+</body>
+</html>
