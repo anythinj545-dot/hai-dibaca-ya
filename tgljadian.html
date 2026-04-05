@@ -8,22 +8,24 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #ffb6c1, #a0c4ff);
+    background: linear-gradient(135deg, #bcd4ff, #ffc1cc);
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    color: #2b2b2b;
 }
 
 /* LOCK */
 #lock {
     text-align: center;
+    padding: 20px;
 }
 
 input {
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: none;
     outline: none;
 }
@@ -31,7 +33,7 @@ input {
 button {
     padding: 10px 15px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-left: 10px;
     cursor: pointer;
     background: white;
@@ -41,10 +43,27 @@ button {
 #main {
     display: none;
     text-align: center;
-    color: white;
     max-width: 700px;
     padding: 20px;
-    animation: fade 1.5s ease;
+}
+
+/* cake */
+.cake {
+    font-size: 55px;
+}
+
+/* slide text */
+.slide {
+    display: none;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+/* fade */
+.show {
+    display: block;
+    animation: fade 1s ease;
 }
 
 @keyframes fade {
@@ -52,39 +71,14 @@ button {
     to {opacity: 1;}
 }
 
-h1 {
-    font-size: 40px;
-}
-
-.cake {
-    font-size: 60px;
-    animation: float 2s infinite alternate;
-}
-
-@keyframes float {
-    from {transform: translateY(0);}
-    to {transform: translateY(-10px);}
-}
-
-/* typing text */
-#text {
+/* button */
+#nextBtn {
     margin-top: 20px;
-    font-size: 15px;
-    line-height: 1.6;
-    white-space: pre-line;
-}
-
-/* falling effect */
-.fall {
-    position: absolute;
-    top: -10px;
-    color: white;
-    font-size: 14px;
-    animation: fall linear infinite;
-}
-
-@keyframes fall {
-    to {transform: translateY(110vh);}
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: white;
 }
 </style>
 </head>
@@ -93,9 +87,12 @@ h1 {
 
 <!-- LOCK -->
 <div id="lock">
-    <h2>Masukkan Passcode</h2>
+    <h3>Masukkan Passcode</h3>
+    <p style="font-size:13px;">(km pst gtau ini tgl jdian kt dl”)</p>
+
     <input type="password" id="code" placeholder="******">
     <button onclick="check()">Masuk</button>
+
     <p id="err"></p>
 </div>
 
@@ -103,77 +100,65 @@ h1 {
 <div id="main">
 
     <div class="cake">🎂</div>
-    <h1>Happy Birthday</h1>
-    <h2>SATRIA WIJAYA</h2>
+    <h2>Happy Birthday</h2>
+    <h3>SATRIA WIJAYA</h3>
 
-    <div id="text"></div>
+    <!-- SLIDES -->
+    <div id="s1" class="slide show">
+        sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu,
+        maaf ya kalo aku belum bisa kaya kamu ke aku.
+    </div>
+
+    <div id="s2" class="slide">
+        aku uda berani lepasin kamu jadi tolong ya sayang..
+        berubahlah jadi lebih baik dari kemarin.
+    </div>
+
+    <div id="s3" class="slide">
+        pulang ke aku kalo dunia kamu berat..
+        aku gabisa benci sama kamu.
+    </div>
+
+    <div id="s4" class="slide">
+        selamat ulang tahun ya..
+        berubahlah buat masa depan kamu, orang tua kamu, dan orang yang nanti sama kamu.
+    </div>
+
+    <div id="s5" class="slide">
+        maaf ya aku cuma kasi ini..
+        see u, be happy 😢
+    </div>
+
+    <button id="nextBtn" onclick="next()">lanjut</button>
 
 </div>
 
-<!-- MUSIC (optional, kamu bisa ganti file sendiri) -->
-<audio id="music" loop>
-    <source src="" type="audio/mpeg">
-</audio>
-
 <script>
+
 function check(){
     let code = document.getElementById("code").value;
 
     if(code === "072525"){
         document.getElementById("lock").style.display = "none";
         document.getElementById("main").style.display = "block";
-
-        startTyping();
-        startRain();
-
-        document.getElementById("music").play();
     } else {
         document.getElementById("err").innerText = "Kode salah";
     }
 }
 
-/* typing effect */
-let text = `sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..
+let current = 1;
 
-aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebih baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu
+function next(){
+    document.getElementById("s"+current).classList.remove("show");
+    current++;
 
-pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu, be happy
-
-selamat ulang tahun ya, kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu, orang tua kamu, dan perempuan yang bakal sama kamu nanti
-
-maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya
-
-see u, be happy 😢`;
-
-function startTyping(){
-    let i = 0;
-    let el = document.getElementById("text");
-
-    let interval = setInterval(() => {
-        el.innerHTML += text[i];
-        i++;
-        if(i >= text.length){
-            clearInterval(interval);
-        }
-    }, 20);
+    if(current <= 5){
+        document.getElementById("s"+current).classList.add("show");
+    } else {
+        document.getElementById("nextBtn").innerText = "selesai";
+    }
 }
 
-/* rain effect */
-function startRain(){
-    setInterval(() => {
-        let drop = document.createElement("div");
-        drop.classList.add("fall");
-        drop.innerHTML = "💧";
-        drop.style.left = Math.random() * window.innerWidth + "px";
-        drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
-
-        document.body.appendChild(drop);
-
-        setTimeout(() => {
-            drop.remove();
-        }, 5000);
-    }, 200);
-}
 </script>
 
 </body>
