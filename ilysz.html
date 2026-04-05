@@ -4,10 +4,16 @@
   <title>Ilys</title>
   <style>
     body {
-      background: #ffeaa7;
       font-family: Arial;
       text-align: center;
       padding-top: 120px;
+      background: linear-gradient(135deg, #ffeaa7, #a29bfe);
+      color: #2d3436;
+    }
+
+    .box {
+      max-width: 500px;
+      margin: auto;
     }
 
     button {
@@ -19,14 +25,35 @@
       cursor: pointer;
       margin-top: 20px;
     }
+
+    #ziaPage {
+      display: none;
+      color: white;
+    }
   </style>
 </head>
 <body>
 
+<!-- HALAMAN ILYS -->
+<div class="box" id="ilysPage">
   <h1>Ilysssss 💖</h1>
-  <p>ini halaman pertama kamu</p>
+  <p>aku mau bilang sesuatu...</p>
+  <p>klik lanjut ya</p>
+  <button onclick="next()">lanjut</button>
+</div>
 
-  <button onclick="location.href='zia.html'">Lanjut ke Zia ➜</button>
+<!-- HALAMAN ZIA -->
+<div class="box" id="ziaPage">
+  <h1>Zia 💜</h1>
+  <p>ini udah halaman terakhir</p>
+</div>
+
+<script>
+function next() {
+  document.getElementById("ilysPage").style.display = "none";
+  document.getElementById("ziaPage").style.display = "block";
+}
+</script>
 
 </body>
 </html>
