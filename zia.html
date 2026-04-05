@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google - tgljadian</title>
+    <title>Google Search - tgljadian</title>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            margin: 0;
             background-color: #202124;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -18,15 +18,16 @@
             overflow: hidden;
         }
 
-        .container { text-align: center; width: 90%; max-width: 500px; }
-        
-        .logo { font-size: 60px; font-weight: bold; margin-bottom: 30px; }
+        /* Tampilan Google */
+        .search-container { text-align: center; transition: 0.5s; }
+        .google-logo { font-size: 60px; font-weight: bold; margin-bottom: 20px; }
         .g-blue { color: #4285F4; } .g-red { color: #EA4335; }
         .g-yellow { color: #FBBC05; } .g-green { color: #34A853; }
 
-        input {
-            width: 100%;
-            padding: 15px 25px;
+        .search-bar {
+            width: 90vw;
+            max-width: 500px;
+            padding: 12px 20px;
             border-radius: 30px;
             border: 1px solid #5f6368;
             background-color: #303134;
@@ -34,51 +35,55 @@
             font-size: 18px;
             outline: none;
             text-align: center;
-            box-sizing: border-box;
         }
 
-        /* Pesan Tersembunyi */
-        #hiddenMessage {
+        /* Konten Tersembunyi */
+        #content {
             display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            animation: fadeIn 1s ease-in;
+            text-align: center;
+            padding: 20px;
+            animation: slideUp 1s ease-out;
         }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .birthday-cake { font-size: 80px; margin-bottom: 20px; }
+        .message { font-size: 22px; font-weight: bold; color: #ffeb3b; }
         
-        .glitch { font-size: 24px; color: #ffeb3b; text-shadow: 2px 2px #f44336; }
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="container" id="searchBox">
-        <div class="logo">
+    <div id="googleSearch" class="search-container">
+        <div class="google-logo">
             <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
         </div>
-        <input type="tel" id="passcode" placeholder="0000" maxlength="4" autocomplete="off">
+        <p style="margin-bottom: 15px; color: #9aa0a6;">tgljadian</p>
+        <input type="tel" id="inputCode" class="search-bar" placeholder="Masukkan Kode..." maxlength="4" autocomplete="off">
     </div>
 
-    <div id="hiddenMessage">
-        <h1 class="glitch">Happy Birthday, Satria Wijaya! 🎂</h1>
-        <p>Menampilkan pesan romantis dan kenangan...</p>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpbmZqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZAmS8mZfaWQ9MSZjdD1n/MDJ9IbxxvDUQM/giphy.gif" width="200">
+    <div id="content">
+        <div class="birthday-cake">🎂</div>
+        <h1 class="message">Happy Birthday, Satria Wijaya! ❤️</h1>
+        <p style="margin-top: 15px;">Semoga bahagia selalu!</p>
+        <div style="margin-top: 20px;">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpbmZqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9iZAmS8mZfaWQ9MSZjdD1n/MDJ9IbxxvDUQM/giphy.gif" width="200" style="border-radius: 15px;">
+        </div>
     </div>
 
     <script>
-        const input = document.getElementById('passcode');
-        const searchBox = document.getElementById('searchBox');
-        const hiddenMessage = document.getElementById('hiddenMessage');
+        const input = document.getElementById('inputCode');
+        const googleSearch = document.getElementById('googleSearch');
+        const content = document.getElementById('content');
 
-        input.addEventListener('input', (e) => {
-            if (e.target.value === '0725') {
-                searchBox.style.display = 'none';
-                hiddenMessage.style.display = 'flex';
-                // Di sini kamu bisa menambahkan fungsi untuk memutar lagu otomatis
+        input.addEventListener('input', function() {
+            // Kode rahasia: 0725
+            if (this.value === '0725') {
+                googleSearch.style.display = 'none';
+                content.style.display = 'block';
+                document.body.style.background = '#000'; // Mengubah background jadi hitam pekat
             }
         });
     </script>
