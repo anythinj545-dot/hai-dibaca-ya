@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Lembah Jam Pasir Terbalik</title>
+
 <style>
 body{
   margin:0;
@@ -15,23 +21,22 @@ body{
   font-family: Georgia, "Times New Roman", serif;
 }
 
-/* 📖 dibuat seperti halaman buku */
 .book {
   width: 80%;
   max-width: 650px;
   color: #3a2f24;
   font-size: 18px;
   line-height: 2;
-  text-align: left;   /* ini bikin turun kebawah, bukan melebar */
-  padding: 20px;
+  text-align: left;
+  padding: 25px;
 }
 
-/* tiap baris jadi seperti paragraf kecil */
+/* tiap paragraf */
 .line {
   opacity: 0;
-  transform: translateY(15px);
+  transform: translateY(12px);
   animation: appear 1s forwards;
-  margin-bottom: 14px; /* spasi antar paragraf */
+  margin-bottom: 18px;
 }
 
 @keyframes appear {
@@ -41,10 +46,48 @@ body{
   }
 }
 
-/* efek gerak lebih halus */
-.left { transform: translateX(-10px); }
-.right { transform: translateX(10px); }
-.up { transform: translateY(-8px); }
-.down { transform: translateY(8px); }
+</style>
+</head>
 
-                                            </style>
+<body>
+
+<!-- 🎵 musik (taruh file: musik.mp3 di folder yang sama) -->
+<audio autoplay loop>
+  <source src="musik.mp3" type="audio/mpeg">
+</audio>
+
+<div class="book" id="book"></div>
+
+<script>
+
+const text = [
+"Di Lembah Jam Pasir Terbalik, dua artefak kuno—Kaca Hati Biru dan Batu Cahaya Hangat—pernah berada dalam satu altar yang sama, di mana segala sesuatu terasa masih mungkin menjadi satu.",
+
+"Kemudian hadir Mahkota Kabut Pilihan, yang membisikkan arah lain yang tampak lebih menjanjikan. Cahaya itu bergerak mengikuti jalannya sendiri, sementara yang lain tetap tinggal dalam diam.",
+
+"Kaca itu dibiarkan retak, menyimpan bayangan dari kemungkinan yang tidak dilanjutkan. Batu itu perlahan kehilangan hangatnya, seperti sesuatu yang pernah berarti namun tidak lagi dijaga.",
+
+"Sejak saat itu, altar itu hanya menyimpan jeda panjang di antara dua sisi—ruang sunyi tempat sesuatu yang hampir menjadi “kita” berhenti sebelum sempat selesai."
+];
+
+let i = 0;
+const book = document.getElementById("book");
+
+function showText(){
+  if(i < text.length){
+    const div = document.createElement("div");
+    div.className = "line";
+    div.innerText = text[i];
+    book.appendChild(div);
+    i++;
+
+    setTimeout(showText, 1400);
+  }
+}
+
+showText();
+
+</script>
+
+</body>
+</html>
