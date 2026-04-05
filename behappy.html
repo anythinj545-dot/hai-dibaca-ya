@@ -16,52 +16,55 @@
 
   .text {
     color: #ff4d6d;
-    font-size: 30px;
-    border-right: 3px solid #ff4d6d;
-    white-space: nowrap;
-    overflow: hidden;
+    font-size: 28px;
+    white-space: pre-line;
+  }
+
+  .cursor {
+    display: inline-block;
+    width: 10px;
+    background: #ff4d6d;
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
   }
 </style>
 </head>
 <body>
 
-<div class="text" id="text"></div>
+<div class="text" id="text"></div><span class="cursor"></span>
 
 <script>
-const texts = [
-  "i love you",
-  "im sorry",
-  "makasi buat semuanya"
+const lines = [
+  "i love you, im sorry",
+  "makasi buat semuanya sat.."
 ];
 
-let i = 0;
+let line = 0;
 let char = 0;
-let currentText = "";
-let isDeleting = false;
+let output = "";
 
 function type() {
-  currentText = texts[i];
+  if (line >= lines.length) return;
 
-  if (!isDeleting) {
-    document.getElementById("text").innerHTML =
-      currentText.substring(0, char++);
-    
-    if (char > currentText.length) {
-      isDeleting = true;
-      setTimeout(type, 1200); // jeda sebelum ganti
-      return;
-    }
+  let current = lines[line];
+
+  output = lines.slice(0, line).join("\n") + (line > 0 ? "\n" : "");
+
+  document.getElementById("text").innerHTML =
+    output + current.substring(0, char);
+
+  if (char < current.length) {
+    char++;
+    setTimeout(type, 80);
   } else {
-    document.getElementById("text").innerHTML =
-      currentText.substring(0, char--);
-
-    if (char < 0) {
-      isDeleting = false;
-      i = (i + 1) % texts.length;
-    }
+    line++;
+    char = 0;
+    setTimeout(type, 800); // jeda sebelum lanjut baris
   }
-
-  setTimeout(type, isDeleting ? 50 : 100);
 }
 
 type();
