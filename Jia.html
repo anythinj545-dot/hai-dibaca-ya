@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bulan sm tanggal jadian</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #202124;
+            color: #a9c7ff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .search-container {
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #a9c7ff;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            width: 90vw;
+            max-width: 500px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid #5f6368;
+            background-color: #303134;
+            color: #a9c7ff;
+            font-size: 18px;
+            outline: none;
+            text-align: center;
+        }
+
+        #content {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            animation: slideUp 1s ease-out;
+        }
+
+        .birthday-cake { font-size: 80px; margin-bottom: 20px; }
+
+        .message {
+            font-size: 22px;
+            font-weight: bold;
+            color: #a9c7ff;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="googleSearch" class="search-container">
+        <div class="logo">bulan sm tanggal jadian</div>
+        <p style="margin-bottom: 15px; color:#a9c7ff;">kode rahasia</p>
+
+        <input type="tel" id="inputCode" class="search-bar"
+               placeholder="Masukkan Kode..." maxlength="4" autocomplete="off">
+    </div>
+
+    <div id="content">
+        <div class="birthday-cake">🎂</div>
+        <h1 class="message">Happy Birthday, Satria Wijaya! ❤️</h1>
+        <p style="margin-top: 15px;">Semoga bahagia selalu!</p>
+
+        <div style="margin-top: 20px;">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJpbmZqZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4ZzR4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9iZAmS8mZfaWQ9MSZjdD1n/MDJ9IbxxvDUQM/giphy.gif"
+                 width="200" style="border-radius: 15px;">
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById('inputCode');
+        const googleSearch = document.getElementById('googleSearch');
+        const content = document.getElementById('content');
+
+        input.addEventListener('input', function () {
+            // kode rahasia: 0725
+            if (this.value === '0725') {
+                googleSearch.style.display = 'none';
+                content.style.display = 'block';
+                document.body.style.background = '#0f1115';
+            }
+        });
+    </script>
+
+</body>
+</html>
