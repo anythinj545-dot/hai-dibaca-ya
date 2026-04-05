@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Lembah Jam Pasir Terbalik</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#e9dfc8;
+
+  /* efek kertas kuno */
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(0,0,0,0.08), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(0,0,0,0.06), transparent 50%),
+    linear-gradient(120deg, rgba(0,0,0,0.05), transparent);
+  
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.book {
+  width: 80%;
+  max-width: 700px;
+  color: #3a2f24;
+  font-size: 18px;
+  line-height: 1.8;
+  text-align: justify;
+}
+
+.line {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: appear 1s forwards;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* variasi gerak puisi */
+.left { transform: translateX(-20px); }
+.right { transform: translateX(20px); }
+.up { transform: translateY(-15px); }
+.down { transform: translateY(15px); }
+
+</style>
+</head>
+
+<body>
+
+<div class="book" id="book"></div>
+
+<script>
+const text = [
+"Di Lembah Jam Pasir Terbalik, dua artefak kuno—Kaca Hati Biru dan Batu Cahaya Hangat—",
+"pernah berada dalam satu altar yang sama, di mana segala sesuatu terasa masih mungkin menjadi satu.",
+"",
+"Kemudian hadir Mahkota Kabut Pilihan, yang membisikkan arah lain yang tampak lebih menjanjikan.",
+"Cahaya itu bergerak mengikuti jalannya sendiri, sementara yang lain tetap tinggal dalam diam.",
+"",
+"Kaca itu dibiarkan retak, menyimpan bayangan dari kemungkinan yang tidak dilanjutkan.",
+"Batu itu perlahan kehilangan hangatnya, seperti sesuatu yang pernah berarti namun tidak lagi disentuh.",
+"",
+"Sejak saat itu, altar itu hanya menyimpan jeda panjang di antara dua sisi—",
+"ruang sunyi tempat sesuatu yang hampir menjadi “kita” berhenti sebelum sempat selesai."
+];
+
+const effects = ["left","right","up","down",""];
+
+let i = 0;
+const container = document.getElementById("book");
+
+function showLine(){
+  if(i < text.length){
+    const div = document.createElement("div");
+    div.className = "line " + effects[Math.floor(Math.random()*effects.length)];
+    div.style.animationDelay = "0s";
+    div.innerText = text[i];
+
+    container.appendChild(div);
+    i++;
+
+    setTimeout(showLine, 900);
+  }
+}
+
+showLine();
+</script>
+
+</body>
+</html>
