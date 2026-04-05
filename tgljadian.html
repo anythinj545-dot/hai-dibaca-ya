@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,86 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        /* Menggunakan font standar/biasa agar tidak lebay */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: #202124; 
+            color: #e8eaed; 
+            font-family: arial, sans-serif; 
+            overflow: hidden;
+        }
+
+        /* --- Halaman Depan (Google) --- */
+        #google-page {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            padding-top: 20vh;
             height: 100vh;
-            margin: 0;
-            background-color: white;
+            transition: 0.5s;
         }
-        .logo {
-            font-size: 80px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .g { color: #4285F4; }
-        .o1 { color: #EA4335; }
-        .o2 { color: #FBBC05; }
-        .l { color: #34A853; }
-        .e { color: #EA4335; }
+        .logo { font-size: 3rem; font-weight: bold; margin-bottom: 25px; letter-spacing: -1px; }
+        .logo span:nth-child(1) { color: #4285F4; }
+        .logo span:nth-child(2) { color: #EA4335; }
+        .logo span:nth-child(3) { color: #FBBC05; }
+        .logo span:nth-child(4) { color: #4285F4; }
+        .logo span:nth-child(5) { color: #34A853; }
+        .logo span:nth-child(6) { color: #EA4335; }
 
         .search-container {
-            text-align: center;
-        }
-        input[type="password"] {
-            width: 320px;
-            padding: 12px 20px;
-            margin: 8px 0;
-            border: 1px solid #dfe1e5;
+            width: 90%;
+            max-width: 500px;
+            background: #3c4043;
             border-radius: 24px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+        }
+        input {
+            background: none;
+            border: none;
+            width: 100%;
             outline: none;
-            font-size: 14px;
+            font-size: 1rem;
+            color: #fff;
         }
-        input[type="password"]:hover, input[type="password"]:focus {
-            box-shadow: 0 1px 6px rgba(32,33,36,.28);
-            border-color: rgba(223,225,229,0);
+
+        /* --- Halaman Surat (Sangat Sederhana) --- */
+        #letter-page {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #000;
+            z-index: 100;
+            padding: 50px 30px;
+            text-align: left;
         }
-        .buttons {
-            margin-top: 20px;
+
+        .header-box { margin-bottom: 40px; }
+        .name { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
+        .sub { font-size: 0.9rem; font-weight: bold; color: #888; }
+
+        .message-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.6;
+            color: #eee;
+            animation: fadeIn 0.8s ease;
         }
-        button {
-            background-color: #f8f9fa;
-            border: 1px solid #f8f9fa;
-            border-radius: 4px;
-            color: #3c4043;
-            font-size: 14px;
-            margin: 11px 4px;
-            padding: 0 16px;
-            line-height: 27px;
-            height: 36px;
+
+        .btn-next {
+            position: absolute;
+            bottom: 60px;
+            left: 30px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 3px;
             cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="logo">
-        <span class="g">G</span><span class="o1">o</span><span class="o2">o</span><span class="g">g</span><span class="l">l</span><span class="e">e</span>
-    </div>
-
-    <div class="search-container">
-        <input type="password" id="passcode" placeholder="ak tau km gbkl tau codeny">
-        <div class="buttons">
-            <button onclick="checkPasscode()">Penelusuran Google</button>
-            <button onclick="checkPasscode()">Saya Lagi Beruntung</button>
+    <div id="google-page">
+        <div class="logo"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+        <div class="search-container">
+            <input type="text" id="search-box" placeholder="Ketik kode rahasia..." autocomplete="off">
         </div>
     </div>
 
+    <div id="letter-page">
+        <div class="header-box" id="header">
+            <h1 class="name">Happy Birthday, Satria Wijaya.</h1>
+            <p class="sub">dibaca yaa ini tu penting banget !!</p>
+        </div>
+
+        <div id="content">
+            </div>
+
+        <div class="btn-next" id="next-btn" onclick="nextSlide()">[ Klik untuk lanjut ]</div>
+    </div>
+
     <script>
-        function checkPasscode() {
-            var code = document.getElementById("passcode").value;
-            // Passcode sudah diganti menjadi 0725
-            if (code === "0725") {
-                alert("Passcode Benar!");
-                window.location.href = "surat.html"; 
+        const searchInput = document.getElementById('search-box');
+        const googlePage = document.getElementById('google-page');
+        const letterPage = document.getElementById('letter-page');
+        const contentDiv = document.getElementById('content');
+        const headerDiv = document.getElementById('header');
+        const nextBtn = document.getElementById('next-btn');
+
+        const slides = [
+            "sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..",
+            "aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu",
+            "pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu, be happy",
+            "selamat ulang tahun ya, kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu, orang tua kamu, dan perempuan yang bakal sama kamu nanti",
+            "maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya, apalagi dijual, nanti kalo kamu gasuka kamu bisa bilang ke aku nanti buat aku aja hihi",
+            "see u, be happy."
+        ];
+
+        let current = 0;
+
+        // Cek input 0725
+        searchInput.addEventListener('input', () => {
+            if (searchInput.value === "0725") {
+                setTimeout(() => {
+                    googlePage.style.opacity = "0";
+                    setTimeout(() => {
+                        googlePage.style.display = "none";
+                        letterPage.style.display = "block";
+                    }, 500);
+                }, 300);
+            }
+        });
+
+        function nextSlide() {
+            // Sembunyikan header setelah klik pertama agar fokus ke teks
+            if (current === 0) headerDiv.style.display = "none";
+
+            if (current < slides.length) {
+                contentDiv.innerHTML = `<p class="message-text">${slides[current]}</p>`;
+                current++;
+                nextBtn.innerHTML = "[ Lanjut ]";
             } else {
-                alert("Yah, bener kan kamu nggak tau codenya :P");
+                nextBtn.style.display = "none";
+                contentDiv.style.opacity = "0.3";
             }
         }
     </script>
-
 </body>
 </html>
