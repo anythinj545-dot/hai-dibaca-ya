@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun</title>
+    <style>
+        /* --- Tema Dasar & Reset --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none; /* Mencegah seleksi teks */
+        }
+
+        body {
+            /* Latar belakang fantasi gelap: ungu tua ke hitam pekat */
+            background: radial-gradient(circle at center, #2e1a3d, #0d0d0d 80%);
+            color: #d8c4e0; /* Warna teks keunguan redup */
+            font-family: 'Crimson Text', 'Times New Roman', serif; /* Font klasik/fantasi */
+            height: 100vh;
+            width: 100%;
+            overflow: hidden; /* Mencegah scrollbar utama */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- Efek Cermin Retak di Latar Belakang --- */
+        #crack-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Klik tembus */
+            z-index: 1;
+            /* Menggunakan SVG untuk retakan halus, putih tipis */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><g stroke="%23ffffff" stroke-width="0.3" fill="none"><path d="M0,0 L100,100 M0,100 L100,0 M20,20 L80,20 L80,80 L20,80 Z"/></g></svg>');
+            background-size: 500px 500px;
+            opacity: 0.15;
+            transition: opacity 2s ease;
+        }
+
+        /* --- Container Slide Teks --- */
+        #slider-container {
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInPage 1s forwards ease;
+        }
+
+        .slide {
+            display: none; /* Awalnya semua sembunyi */
+            opacity: 0;
+            padding: 20px;
+            text-shadow: 0 0 10px rgba(216, 196, 224, 0.4); /* Efek cahaya mistis */
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideInText 0.8s forwards ease;
+        }
+
+        /* --- Judul & Gaya Teks --- */
+        .slide h1 {
+            color: #ff9f43; /* Warna emas tua fantasi */
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            font-family: 'Papyrus', 'Fantasy', sans-serif; /* Font fantasi */
+            position: relative;
+        }
+
+        .slide h1::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 1px;
+            background: radial-gradient(circle, #ff9f43, transparent);
+            margin: 10px auto;
+        }
+
+        .slide p {
+            line-height: 1.8;
+            font-size: 1.15rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* --- Tombol Lanjut (Link) --- */
+        #next-btn {
+            display: none; /* Awalnya sembunyi */
+            position: absolute;
+            bottom: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff9f43;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 159, 67, 0.4);
+            border-radius: 5px;
+            background: rgba(46, 26, 61, 0.5);
+            transition: all 0.3s;
+            animation: buttonPulse 2s infinite ease-in-out;
+        }
+
+        #next-btn.show {
+            display: block;
+        }
+
+        #next-btn:hover {
+            border-color: #ff9f43;
+            background: rgba(255, 159, 67, 0.1);
+        }
+
+        /* --- Efek Buah Busuk yang Jatuh --- */
+        #fruit-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .rotten-fruit {
+            position: absolute;
+            color: #8b0000; /* Merah gelap */
+            font-size: 2rem;
+            opacity: 0.6;
+            animation: dropFruit linear forwards;
+        }
+
+        /* --- Animasi --- */
+
+        @keyframes fadeInPage {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideInText {
+            0% { opacity: 0; transform: scale(0.9) translateY(-10px); filter: blur(2px); }
+            50% { opacity: 0.5; filter: blur(0); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes buttonPulse {
+            0% { transform: translateX(-50%) scale(1); border-color: rgba(255, 159, 67, 0.4); }
+            50% { transform: translateX(-50%) scale(1.05); border-color: rgba(255, 159, 67, 0.8); }
+            100% { transform: translateX(-50%) scale(1); border-color: rgba(255, 159, 67, 0.4); }
+        }
+
+        @keyframes dropFruit {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital@1&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="crack-overlay"></div>
+    
+    <div id="fruit-rain"></div>
+
+    <div id="slider-container">
+        
+        <div class="slide active">
+            <h1>Untukmu...</h1>
+            <p>sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..</p>
+        </div>
+
+        <div class="slide">
+            <h1>Sebuah Harapan</h1>
+            <p>aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu</p>
+        </div>
+
+        <div class="slide">
+            <h1>Sebuah Pesan</h1>
+            <p>pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu,be happy</p>
+        </div>
+
+        <div class="slide">
+            <h1 style="color: #4cd137;">Happy Birthday 🎂</h1>
+            <p>selamat ulang tahun ya,kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu,orang tua kamu, dan perempuan yang bakal sama kamu nanti</p>
+        </div>
+
+        <div class="slide">
+            <h1>Maaf...</h1>
+            <p>maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya, apalagi dijual,nanti kalo kamu gasuka kamu bisa bilang ke aku nanti buat aku aja hihi</p>
+            <p style="margin-top: 25px; color: #ff9f43;">see u, be happy.</p>
+        </div>
+
+        <a id="next-btn">Selanjutnya...</a>
+
+    </div>
+
+    <script>
+        // --- Konfigurasi ---
+        const slides = document.querySelectorAll('.slide');
+        const nextBtn = document.getElementById('next-btn');
+        const crackOverlay = document.getElementById('crack-overlay');
+        const fruitRain = document.getElementById('fruit-rain');
+        let currentSlide = 0;
+
+        // Emoji buah yang mewakili "busuk" (Apel & Ceri gelap/kering)
+        const fruitEmojis = ['🍎', '🍒', '🍂', '💧'];
+
+        // --- Logika Slide ---
+        
+        // Tampilkan tombol 'Next' setelah teks muncul
+        setTimeout(() => {
+            nextBtn.classList.add('show');
+        }, 1200);
+
+        nextBtn.addEventListener('click', () => {
+            // Sembunyikan slide lama
+            slides[currentSlide].classList.remove('active');
+            
+            // Lanjut ke slide berikutnya
+            currentSlide++;
+
+            // Jika masih ada slide, tampilkan
+            if (currentSlide < slides.length) {
+                slides[currentSlide].classList.add('active');
+                
+                // Jika sudah slide terakhir, ganti teks tombol
+                if (currentSlide === slides.length - 1) {
+                    nextBtn.textContent = 'Selesai';
+                }
+            } else {
+                // Jika slide habis, sembunyi tombol
+                nextBtn.classList.remove('show');
+                crackOverlay.style.opacity = '0'; // Hilangkan retakan di akhir
+            }
+        });
+
+        // --- Efek Buah Jatuh (Busuk) ---
+        function createRottenFruit() {
+            if (currentSlide >= slides.length - 1) return; // Hentikan di akhir
+
+            const fruit = document.createElement('div');
+            fruit.classList.add('rotten-fruit');
+            fruit.textContent = fruitEmojis[Math.floor(Math.random() * fruitEmojis.length)];
+            
+            // Posisi acak horizontal
+            fruit.style.left = Math.random() * 100 + 'vw';
+            // Ukuran acak
+            fruit.style.fontSize = Math.random() * 1 + 1.5 + 'rem';
+            // Durasi jatuh acak (lebih lambat/melayang)
+            fruit.style.animationDuration = Math.random() * 3 + 4 + 's';
+            
+            fruitRain.appendChild(fruit);
+
+            // Hapus elemen setelah jatuh
+            setTimeout(() => {
+                fruit.remove();
+            }, 7000);
+        }
+
+        // Jalankan pembuat buah secara berkala
+        setInterval(createRottenFruit, 600);
+
+    </script>
+</body>
+</html>
