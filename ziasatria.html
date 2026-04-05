@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Satria</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcfcfc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Pesan Awal (Biru Pastel) */
+        #pesan-awal {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: #A7C7E7; /* Biru Pastel */
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* Konten Utama (Awalnya Tersembunyi) */
+        #konten-utama {
+            display: none; /* Disembunyikan dulu */
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        .foto-satria {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .typing-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #444;
+            text-transform: lowercase;
+        }
+
+        .cursor {
+            color: #A7C7E7;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div id="pesan-awal">
+            <span id="text1"></span><span id="cursor1" class="cursor">|</span>
+        </div>
+
+        <div id="konten-utama">
+            <img src="IMG-20260405-WA0009.jpg" alt="Satria" class="foto-satria">
+            <div>
+                <span id="text2" class="typing-text"></span><span id="cursor2" class="cursor">_</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const text1Element = document.getElementById("text1");
+        const text2Element = document.getElementById("text2");
+        const kontenUtama = document.getElementById("konten-utama");
+        
+        const msg1 = "hai ada pesan buat satriaaa, iyaaa kamuuu sat";
+        const msg2 = "happy birthday satria";
+        
+        let i = 0;
+        let j = 0;
+
+        // Fungsi ngetik pesan pertama
+        function typeMsg1() {
+            if (i < msg1.length) {
+                text1Element.innerHTML += msg1.charAt(i);
+                i++;
+                setTimeout(typeMsg1, 100);
+            } else {
+                // Selesai ngetik pesan 1, tunggu bentar terus munculin konten utama
+                document.getElementById("cursor1").style.display = "none";
+                setTimeout(munculkanKonten, 1000);
+            }
+        }
+
+        function munculkanKonten() {
+            // Hilangkan pesan awal pelan-pelan (optional)
+            // document.getElementById("pesan-awal").style.display = "none"; 
+            
+            // Tampilkan foto dan mulai ngetik HBD
+            kontenUtama.style.display = "block";
+            setTimeout(() => {
+                kontenUtama.style.opacity = 1;
+                typeMsg2();
+            }, 100);
+        }
+
+        function typeMsg2() {
+            if (j < msg2.length) {
+                text2Element.innerHTML += msg2.charAt(j);
+                j++;
+                setTimeout(typeMsg2, 120);
+            }
+        }
+
+        window.onload = typeMsg1;
+    </script>
+
+</body>
+</html>
