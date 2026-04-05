@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selesai.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;1,400&family=Dancing+Script&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: #080808; /* Hitam sangat gelap */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #2c2c2c;
+            font-family: 'Crimson Text', serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Efek Cermin Retak Samar di Layar */
+        .glass-cracks {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/broken-glass.png');
+            opacity: 0.07;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        /* Container Buku / Kertas Lama */
+        .paper {
+            position: relative;
+            z-index: 10;
+            width: 85%;
+            max-width: 400px;
+            background: #f4f1ea; /* Warna kertas usang */
+            padding: 45px 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-left: 15px solid #2c2c2c; /* Seperti jilid buku */
+            animation: openBook 1.5s ease-out;
+        }
+
+        .text-area {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-style: italic;
+            animation: fadeInText 2s ease-in-out forwards;
+        }
+
+        .header-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: #8b0000; /* Merah gelap seperti apel busuk */
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .footer-nav {
+            text-align: right;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            color: #888;
+            margin-top: 25px;
+            transition: 0.3s;
+        }
+
+        .footer-nav:hover { color: #222; }
+
+        /* Dekorasi Apel Layu di Pojok */
+        .decoration {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            opacity: 0.1;
+            filter: grayscale(1);
+        }
+
+        @keyframes openBook {
+            from { transform: rotateY(-20deg) scale(0.9); opacity: 0; }
+            to { transform: rotateY(0deg) scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeInText {
+            from { opacity: 0; filter: blur(4px); }
+            to { opacity: 1; filter: blur(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-cracks"></div>
+
+    <div class="paper">
+        <div class="decoration">🍎</div>
+        
+        <div class="text-area" id="main-text">
+            <span class="header-text">Happy Birthday,</span>
+            sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..
+        </div>
+        
+        <div class="footer-nav" id="btn-next" onclick="changePage()">
+            [ Buka Halaman 1/5 ]
+        </div>
+    </div>
+
+    <script>
+        const konten = [
+            "aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu",
+            "pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu, be happy",
+            "<span class='header-text'>Selamat ulang tahun ya,</span> kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu, orang tua kamu, dan perempuan yang bakal sama kamu nanti",
+            "maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya, apalagi dijual, nanti kalo kamu gasuka kamu bisa bilang ke aku nanti buat aku aja hihi",
+            "<span class='header-text'>See u, be happy.</span>"
+        ];
+
+        let p = 0;
+        const display = document.getElementById('main-text');
+        const btn = document.getElementById('btn-next');
+
+        function changePage() {
+            if (p < konten.length) {
+                // Animasi transisi halaman
+                display.style.animation = 'none';
+                display.offsetHeight; 
+                display.style.animation = 'fadeInText 1.5s ease-in-out forwards';
+                
+                display.innerHTML = konten[p];
+                p++;
+
+                if (p < konten.length) {
+                    btn.innerHTML = "[ Buka Halaman " + (p + 1) + "/5 ]";
+                } else {
+                    btn.innerHTML = "[ Tutup Buku ]";
+                }
+            } else {
+                btn.style.display = 'none';
+                display.style.opacity = '0.4';
+            }
+        }
+    </script>
+</body>
+</html>
