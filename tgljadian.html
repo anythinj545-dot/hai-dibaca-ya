@@ -1,183 +1,180 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Satria Wijaya</title>
-    <style>
-        body {
-            background-color: #030303;
-            color: #d1d1d1;
-            font-family: 'Helvetica Neue', Arial, sans-serif; /* Font bersih, tidak alay */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+<meta charset="UTF-8">
+<title>Birthday</title>
 
-        .hidden { display: none; }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffb6c1, #a0c4ff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
 
-        /* Layar Login */
-        #login-screen { text-align: center; }
-        input {
-            padding: 12px;
-            background: #111;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 5px;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 1rem;
-        }
-        button {
-            padding: 10px 20px;
-            background: #444;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+/* LOCK */
+#lock {
+    text-align: center;
+}
 
-        /* Animasi Kue Ultah */
-        .cake {
-            font-size: 14px;
-            color: #fff;
-            margin-bottom: 20px;
-            white-space: pre;
-            text-align: center;
-        }
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
 
-        /* Efek Lilin Rusak (Nyala Mati) */
-        .flicker {
-            animation: broken-light 0.2s infinite alternate;
-        }
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    background: white;
+}
 
-        @keyframes broken-light {
-            0% { opacity: 1; color: #ffce00; }
-            50% { opacity: 0; }
-            100% { opacity: 0.8; color: #ff4d4d; }
-        }
+/* MAIN */
+#main {
+    display: none;
+    text-align: center;
+    color: white;
+    max-width: 700px;
+    padding: 20px;
+    animation: fade 1.5s ease;
+}
 
-        /* Konten Utama */
-        #main-content {
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-        }
+@keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
 
-        .name-box {
-            position: relative;
-            height: 50px;
-            margin-bottom: 30px;
-        }
+h1 {
+    font-size: 40px;
+}
 
-        .base-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-        }
+.cake {
+    font-size: 60px;
+    animation: float 2s infinite alternate;
+}
 
-        /* Teks JAYA Efek Rusak */
-        #jaya-text {
-            color: #ff1a1a;
-            font-weight: 900;
-            font-size: 2rem;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            display: none;
-            animation: glitch 0.1s infinite;
-        }
+@keyframes float {
+    from {transform: translateY(0);}
+    to {transform: translateY(-10px);}
+}
 
-        @keyframes glitch {
-            0% { opacity: 1; transform: translateX(-52%); }
-            100% { opacity: 0.4; transform: translateX(-48%); }
-        }
+/* typing text */
+#text {
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: pre-line;
+}
 
-        .message-box {
-            text-align: left;
-            line-height: 1.8;
-            font-size: 1rem;
-            white-space: pre-wrap;
-            color: #b0b0b0;
-        }
-    </style>
+/* falling effect */
+.fall {
+    position: absolute;
+    top: -10px;
+    color: white;
+    font-size: 14px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {transform: translateY(110vh);}
+}
+</style>
 </head>
+
 <body>
 
-    <div id="login-screen">
-        <h3 style="color: white; font-weight: 300;">Enter Passcode</h3>
-        <input type="password" id="passInput" placeholder="DDMMYYYY">
-        <br>
-        <button onclick="checkPass()">Open</button>
-    </div>
+<!-- LOCK -->
+<div id="lock">
+    <h2>Masukkan Passcode</h2>
+    <input type="password" id="code" placeholder="******">
+    <button onclick="check()">Masuk</button>
+    <p id="err"></p>
+</div>
 
-    <div id="main-content" class="hidden">
-        <div class="cake">
-     <span class="flicker">i  i  i</span>
-     [  ]  [
-   {*********}
-        </div>
+<!-- MAIN -->
+<div id="main">
 
-        <div class="name-box">
-            <div id="base-name" class="base-name">Satria Wijaya</div>
-            <div id="jaya-text">JAYA</div>
-        </div>
-        
-        <div class="message-box">
-            <span id="typing-text"></span>
-        </div>
-    </div>
+    <div class="cake">🎂</div>
+    <h1>Happy Birthday</h1>
+    <h2>SATRIA WIJAYA</h2>
 
-    <script>
-        function checkPass() {
-            const pass = document.getElementById('passInput').value;
-            if(pass === "07252025") {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-                
-                // Trigger JAYA muncul tiba-tiba setelah 1 detik
-                setTimeout(triggerJaya, 1500);
-                startTyping();
-            } else {
-                alert("Salah...");
-            }
+    <div id="text"></div>
+
+</div>
+
+<!-- MUSIC (optional, kamu bisa ganti file sendiri) -->
+<audio id="music" loop>
+    <source src="" type="audio/mpeg">
+</audio>
+
+<script>
+function check(){
+    let code = document.getElementById("code").value;
+
+    if(code === "072525"){
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("main").style.display = "block";
+
+        startTyping();
+        startRain();
+
+        document.getElementById("music").play();
+    } else {
+        document.getElementById("err").innerText = "Kode salah";
+    }
+}
+
+/* typing effect */
+let text = `sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..
+
+aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebih baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu
+
+pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu, be happy
+
+selamat ulang tahun ya, kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu, orang tua kamu, dan perempuan yang bakal sama kamu nanti
+
+maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya
+
+see u, be happy 😢`;
+
+function startTyping(){
+    let i = 0;
+    let el = document.getElementById("text");
+
+    let interval = setInterval(() => {
+        el.innerHTML += text[i];
+        i++;
+        if(i >= text.length){
+            clearInterval(interval);
         }
+    }, 20);
+}
 
-        function triggerJaya() {
-            document.getElementById('base-name').style.opacity = "0.3";
-            document.getElementById('jaya-text').style.display = "block";
-        }
+/* rain effect */
+function startRain(){
+    setInterval(() => {
+        let drop = document.createElement("div");
+        drop.classList.add("fall");
+        drop.innerHTML = "💧";
+        drop.style.left = Math.random() * window.innerWidth + "px";
+        drop.style.animationDuration = (Math.random() * 3 + 2) + "s";
 
-        // KATA-KATA ASLI DARI KAMU
-        const text = `Happy birthday
+        document.body.appendChild(drop);
 
-sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..
+        setTimeout(() => {
+            drop.remove();
+        }, 5000);
+    }, 200);
+}
+</script>
 
-aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu
-
-pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu,be happy
-
-selamat ulang tahun ya,kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu,orang tua kamu, dan perempuan yang bakal sama kamu nanti
-
-maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya, apalagi dijual,nanti kalo kamu gasuka kamu bisa bilang ke aku nanti buat aku aja hihi
-
-see u, be happy.`;
-
-        let i = 0;
-        function startTyping() {
-            if (i < text.length) {
-                document.getElementById("typing-text").innerHTML += text.charAt(i);
-                i++;
-                window.scrollTo(0, document.body.scrollHeight);
-                setTimeout(startTyping, 50);
-            }
-        }
-    </script>
 </body>
 </html>
