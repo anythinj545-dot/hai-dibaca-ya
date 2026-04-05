@@ -1,22 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <title>Untuk Kamu 💌</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Satria</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffeef2;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+
+        /* Foto Kolase kamu */
+        .foto-satria {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+        }
+
+        /* Gaya tulisan ngetik */
+        .typing-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.2rem;
+            color: #b33939;
+            min-height: 60px;
+            display: inline-block;
+        }
+
+        /* Kursor ngetik (kedap-kedip) */
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #b33939;
+            margin-left: 5px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
 </head>
-<body style="text-align:center; font-family: Arial; padding: 50px; background:#fff0f5;">
+<body>
 
-  <h2>Hai, dibaca ya 💖</h2>
-  <p>Pilih salah satu:</p>
+    <div class="container">
+        <img src="IMG-20260405-WA0009.jpg" alt="Foto Satria" class="foto-satria">
 
-  <a href="https://anythinj545-dot.github.io/hai-dibaca-ya/zia.html" 
-     style="display:block; margin:20px; font-size:18px;">
-     💌 Pesan 1
-  </a>
+        <div>
+            <span id="text" class="typing-text"></span><span class="cursor">|</span>
+        </div>
+    </div>
 
-  <a href="https://anythinj545-dot.github.io/hai-dibaca-ya/behappy.html"
-     style="display:block; margin:20px; font-size:18px;">
-     🌸 Pesan 2
-  </a>
+    <script>
+        const textElement = document.getElementById("text");
+        const message = "happy birthday satria"; // Tulisan yang mau diketik
+        let i = 0;
+
+        function typeEffect() {
+            if (i < message.length) {
+                textElement.innerHTML += message.charAt(i);
+                i++;
+                setTimeout(typeEffect, 150); // Kecepatan ngetik (150ms)
+            } else {
+                // Sembunyikan kursor kalau sudah selesai ngetik
+                document.querySelector(".cursor").style.display = "none";
+            }
+        }
+
+        // Jalankan efek saat halaman dibuka
+        window.onload = typeEffect;
+    </script>
 
 </body>
-</html>
+  </html>
