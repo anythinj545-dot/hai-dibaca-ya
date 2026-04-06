@@ -1,178 +1,175 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bulan sm tanggal jadian</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>bulan sm tanggal jadian</title>
 
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background-color: #cfe8ff; /* 💙 biru pastel */
-            color: #1f3a5f; /* 💙 biru denim tua */
-            font-family: arial, sans-serif;
-            overflow: hidden;
-        }
+body {
+    background-color: #cfe8ff;
+    color: #1f3a5f;
+    font-family: arial, sans-serif;
+    overflow: hidden;
+}
 
-        /* --- Halaman Depan --- */
-        #google-page {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 20vh;
-            height: 100vh;
-            transition: 0.5s;
-        }
+#google-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20vh;
+    height: 100vh;
+    transition: 0.5s;
+}
 
-        .logo {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 25px;
-            color: #1f3a5f; /* denim tua */
-            text-align: center;
-        }
+.logo {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 25px;
+    color: #1f3a5f;
+    text-align: center;
+}
 
-        .search-container {
-            width: 90%;
-            max-width: 500px;
-            background: #b8dbff; /* pastel biru lebih soft */
-            border-radius: 24px;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-        }
+.search-container {
+    width: 90%;
+    max-width: 500px;
+    background: #b8dbff;
+    border-radius: 24px;
+    padding: 12px 20px;
+    display: flex;
+}
 
-        input {
-            background: none;
-            border: none;
-            width: 100%;
-            outline: none;
-            font-size: 1rem;
-            color: #1f3a5f; /* denim tua */
-        }
+input {
+    background: none;
+    border: none;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #1f3a5f;
+}
 
-        /* --- Halaman Surat --- */
-        #letter-page {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: #cfe8ff; /* pastel juga */
-            z-index: 100;
-            padding: 50px 30px;
-            text-align: left;
-        }
+#letter-page {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #cfe8ff;
+    z-index: 100;
+    padding: 50px 30px;
+    text-align: left;
+}
 
-        .header-box { margin-bottom: 40px; }
+.header-box { margin-bottom: 40px; }
 
-        .name {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #1f3a5f;
-            margin-bottom: 5px;
-        }
+.name {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1f3a5f;
+}
 
-        .sub {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #2f5f8f;
-        }
+.sub {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #2f5f8f;
+}
 
-        .message-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            line-height: 1.6;
-            color: #1f3a5f;
-            animation: fadeIn 0.8s ease;
-        }
+.message-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: #1f3a5f;
+    animation: fadeIn 0.8s ease;
+}
 
-        .btn-next {
-            position: absolute;
-            bottom: 60px;
-            left: 30px;
-            font-size: 0.75rem;
-            font-weight: 900;
-            color: #2f5f8f;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-        }
+.btn-next {
+    position: absolute;
+    bottom: 60px;
+    left: 30px;
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #2f5f8f;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    cursor: pointer;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
 </head>
 
 <body>
 
-    <div id="google-page">
-        <div class="logo">(bulan sama tanggal jadian dulu)</div>
+<div id="google-page">
+    <div class="logo">(bulan sama tanggal jadian dulu)</div>
+    <div class="search-container">
+        <input type="text" id="search-box" placeholder="kalo gatau tanya yang bikin..." autocomplete="off">
+    </div>
+</div>
 
-        <div class="search-container">
-            <input type="text" id="search-box" placeholder="Ketik kode rahasia..." autocomplete="off">
-        </div>
+<div id="letter-page">
+    <div class="header-box" id="header">
+        <h1 class="name">Happy Birthday, Satria Wijaya.</h1>
+        <p class="sub">dibaca yaa ini tu penting banget !!</p>
     </div>
 
-    <div id="letter-page">
-        <div class="header-box" id="header">
-            <h1 class="name">Happy Birthday, Satria Wijaya.</h1>
-            <p class="sub">dibaca yaa ini tu penting banget !!</p>
-        </div>
+    <div id="content"></div>
 
-        <div id="content"></div>
+    <div class="btn-next" id="next-btn" onclick="nextSlide()">[ Klik untuk lanjut ]</div>
+</div>
 
-        <div class="btn-next" id="next-btn" onclick="nextSlide()">[ Klik untuk lanjut ]</div>
-    </div>
+<script>
+const searchInput = document.getElementById('search-box');
+const googlePage = document.getElementById('google-page');
+const letterPage = document.getElementById('letter-page');
+const contentDiv = document.getElementById('content');
+const headerDiv = document.getElementById('header');
+const nextBtn = document.getElementById('next-btn');
 
-    <script>
-        const searchInput = document.getElementById('search-box');
-        const googlePage = document.getElementById('google-page');
-        const letterPage = document.getElementById('letter-page');
-        const contentDiv = document.getElementById('content');
-        const headerDiv = document.getElementById('header');
-        const nextBtn = document.getElementById('next-btn');
+const slides = [
+"sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku...",
+"aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik...",
+"pulang ke aku kalo dunia kamu berat...",
+"selamat ulang tahun ya...",
+"maaf ya aku cuma kasi ini...",
+"makasi buat semunya ya, see you be happy my universe."
+];
 
-        const slides = [
-            "sekalipun aku sakit.. aku gabakal berhenti ngerayain kamu, maaf ya kalo aku belum bisa kaya kamu ke aku, semoga apapun pilihan kamu itu yang terbaik buat kamu..",
-            "aku uda berani lepasin kamu jadi tolong ya sayang.. berubahlah jadi lebi baik dari kemarin, orang tua kamu percaya sama kamu, kamu jangan kecewain mereka lagi, semuanya uda diusahain buat kamu tolong jaga pergaulan jangan merusak masa depanmu",
-            "pulang ke aku kalo dunia kamu berat, aku gabisa benci sama kamu sekalipun kamu jalan sama perempuan itu.., aku sadar aku mungkin pantes dapet semua itu, maaf buat rasa sakit yang bikin kamu jadi ngelakuin itu, be happy",
-            "selamat ulang tahun ya, kalo gabisa berubah buat aku.. berubahlah buat masa depan kamu, orang tua kamu, dan perempuan yang bakal sama kamu nanti",
-            "maaf ya aku cuma kasi ini, aku takut kamu gasuka.. tolong jangan dibuang ya, apalagi dijual, nanti kalo kamu gasuka kamu bisa bilang ke aku nanti buat aku aja hihi",
-            "makasi buat semunya ya,see you be happy my universe."
+let current = 0;
 
-            
-        ];
+searchInput.addEventListener('input', () => {
+    if (searchInput.value === "0725") {
+        setTimeout(() => {
+            googlePage.style.opacity = "0";
+            setTimeout(() => {
+                googlePage.style.display = "none";
+                letterPage.style.display = "block";
+            }, 500);
+        }, 300);
+    }
+});
 
-        let current = 0;
+function nextSlide() {
+    if (current === 0) headerDiv.style.display = "none";
 
-        searchInput.addEventListener('input', () => {
-            if (searchInput.value === "0725") {
-                setTimeout(() => {
-                    googlePage.style.opacity = "0";
-                    setTimeout(() => {
-                        googlePage.style.display = "none";
-                        letterPage.style.display = "block";
-                    }, 500);
-                }, 300);
-            }
-        });
+    if (current < slides.length) {
+        contentDiv.innerHTML = `<p class="message-text">${slides[current]}</p>`;
+        current++;
+        nextBtn.innerHTML = "[ Lanjut ]";
+    } else {
+        nextBtn.style.display = "none";
 
-        function nextSlide() {
-            if (current === 0) headerDiv.style.display = "none";
-
-            if (current < slides.length) {
-                contentDiv.innerHTML = `<p class="message-text">${slides[current]}</p>`;
-                current++;
-                nextBtn.innerHTML = "[ Lanjut ]";
-            } else {
-                nextBtn.style.display = "none";
-                contentDiv.style.opacity = "0.3";
-            }
-        }
-    </script>
+        contentDiv.innerHTML += `
+        <p class="message-text" style="margin-top:20px; opacity:0.7;">
+        geser kekiri atau back ya soalnya belum kelar
+        </p>`;
+    }
+}
+</script>
 
 </body>
     </html>
