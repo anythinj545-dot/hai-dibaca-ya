@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>for you</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 30px 20px;
+    overflow: hidden;
+  }
+
+  .start {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column; /* biar ke bawah */
+    justify-content: center;
+    align-items: center;
+    color: #a5c9ff;
+    z-index: 10;
+  }
+
+  .start h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    margin: 8px;
+    border-radius: 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .lanjut {
+    background: #a5c9ff;
+    color: #000;
+    font-weight: 600;
+  }
+
+  .gamau {
+    background: transparent;
+    color: #a5c9ff;
+  }
+
+  .text, .bottom, .ttd {
+    max-width: 260px;
+    margin: auto;
+    color: #a5c9ff;
+    line-height: 1.9;
+    word-wrap: break-word;
+  }
+
+  .text {
+    font-size: 17px;
+    font-weight: 700;
+    min-height: 60px;
+  }
+
+  .bottom {
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 80px;
+  }
+
+  .ttd {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .video-box {
+    margin-top: 25px;
+    overflow: hidden;
+    border-radius: 14px;
+    display: inline-block;
+  }
+
+  video {
+    width: 280px;
+    transform: scale(1.25);
+  }
+
+  .fade-out {
+    animation: hilang 2.5s forwards;
+  }
+
+  @keyframes hilang {
+    to {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(-50px);
+    }
+  }
+
+  .msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a5c9ff;
+    display: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="start" id="startScreen">
+  <h2>for u ❤️‍🩹</h2>
+
+  <button class="btn lanjut" onclick="mulai()">lanjut</button>
+  <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
+
+  <div class="msg" id="msg">yaudah sih... tapi sayang banget 😔</div>
+</div>
+
+<div class="text" id="textAtas"></div>
+
+<div class="video-box">
+  <video id="vid" playsinline>
+    <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
+  </video>
+</div>
+
+<div class="bottom" id="textBawah"></div>
+<div class="ttd" id="ttd"></div>
+
+<script>
+const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
+const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
+const ttd = "to satria\nby zia";
+
+let teksSelesai = false;
+let videoSelesai = false;
+
+function cekSelesai(){
+  if(teksSelesai && videoSelesai){
+    setTimeout(() => {
+      document.body.classList.add("fade-out");
+    }, 1200);
+  }
+}
+
+function ketik(el, text, speed=38, callback){
+  let i = 0;
+  function ngetik(){
+    if(i < text.length){
+      el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+      i++;
+      setTimeout(ngetik, speed);
+    } else if(callback){
+      callback();
+    }
+  }
+  ngetik();
+}
+
+const start = document.getElementById("startScreen");
+const video = document.getElementById("vid");
+
+function mulai(){
+  start.style.display = "none";
+  video.play();
+
+  ketik(document.getElementById("textAtas"), atas, 38, () => {
+    setTimeout(() => {
+      ketik(document.getElementById("textBawah"), bawah, 38, () => {
+        setTimeout(() => {
+          ketik(document.getElementById("ttd"), ttd, 40, () => {
+            teksSelesai = true;
+            cekSelesai();
+          });
+        }, 500);
+      });
+    }, 500);
+  });
+}
+
+function gamau(){
+  document.getElementById("msg").style.display = "block";
+}
+
+video.onended = () => {
+  videoSelesai = true;
+  cekSelesai();
+};
+</script>
+
+</body>
+</html>
