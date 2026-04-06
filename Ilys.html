@@ -1,155 +1,209 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Satria</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #fcfcfc;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<title>for you</title>
 
-        .container {
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-        }
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 30px 20px;
+    overflow: hidden;
+  }
 
-        /* Pesan Biru Pastel */
-        #pesan-biru {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.1rem;
-            color: #A7C7E7;
-            margin-bottom: 20px;
-            min-height: 50px;
-        }
+  .start {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #a5c9ff;
+    z-index: 10;
+  }
 
-        /* Tombol Link */
-        #tombol-pintu {
-            display: none; /* Muncul setelah ngetik selesai */
-            opacity: 0;
-            text-decoration: none;
-            color: white;
-            background-color: #A7C7E7;
-            padding: 10px 25px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.5s ease;
-            cursor: pointer;
-            border: none;
-        }
+  .start h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
 
-        /* Konten Utama (Foto & HBD) */
-        #konten-hbd {
-            display: none;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
+  .btn {
+    padding: 10px 20px;
+    margin: 8px;
+    border-radius: 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
 
-        .foto-satria {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
+  .lanjut {
+    background: #a5c9ff;
+    color: #000;
+    font-weight: 600;
+  }
 
-        .typing-hbd {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #444;
-            text-transform: lowercase;
-        }
+  .gamau {
+    background: transparent;
+    color: #a5c9ff;
+  }
 
-        .cursor {
-            color: #A7C7E7;
-            animation: blink 0.8s infinite;
-        }
+  .msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a5c9ff;
+    display: none;
+  }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    </style>
+  .text, .bottom, .ttd, .next {
+    max-width: 260px;
+    margin: auto;
+    color: #a5c9ff;
+    line-height: 1.9;
+    word-wrap: break-word;
+  }
+
+  .text {
+    font-size: 17px;
+    font-weight: 700;
+    min-height: 60px;
+  }
+
+  .bottom {
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 80px;
+  }
+
+  .ttd {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .next {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+
+  .video-box {
+    margin-top: 25px;
+    overflow: hidden;
+    border-radius: 14px;
+    display: inline-block;
+  }
+
+  video {
+    width: 280px;
+    transform: scale(1.25);
+  }
+
+  .fade-out {
+    animation: hilang 2.5s forwards;
+  }
+
+  @keyframes hilang {
+    to {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(-50px);
+    }
+  }
+</style>
 </head>
+
 <body>
 
-    <div class="container">
-        <div id="tahap-awal">
-            <div id="pesan-biru">
-                <span id="text1"></span><span id="cursor1" class="cursor">|</span>
-            </div>
-            <button id="tombol-pintu" onclick="bukaPesan()">pencet ini yaa</button>
-        </div>
+<div class="start" id="startScreen">
+  <h2>for u ❤️‍🩹</h2>
+  <button class="btn lanjut" onclick="mulai()">lanjut</button>
+  <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
+  <div class="msg" id="msg">yaudah sih... tapi sayang banget 😔</div>
+</div>
 
-        <div id="konten-hbd">
-            <img src="IMG-20260405-WA0009.jpg" alt="Satria" class="foto-satria">
-            <div>
-                <span id="text2" class="typing-hbd"></span><span id="cursor2" class="cursor">_</span>
-            </div>
-        </div>
-    </div>
+<div class="text" id="textAtas"></div>
 
-    <script>
-        const text1 = document.getElementById("text1");
-        const text2 = document.getElementById("text2");
-        const btn = document.getElementById("tombol-pintu");
-        const tahapAwal = document.getElementById("tahap-awal");
-        const kontenHbd = document.getElementById("konten-hbd");
-        
-        const pesan1 = "hai ada pesan buat satriaaa, iyaaa kamuuu sat";
-        const pesan2 = "happy birthday ia";
-        
-        let i = 0;
-        let j = 0;
+<div class="video-box">
+  <video id="vid" playsinline>
+    <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
+  </video>
+</div>
 
-        function mulaiNgetik1() {
-            if (i < pesan1.length) {
-                text1.innerHTML += pesan1.charAt(i);
-                i++;
-                setTimeout(mulaiNgetik1, 100);
-            } else {
-                // Munculkan tombol setelah ngetik selesai
-                btn.style.display = "inline-block";
-                setTimeout(() => { btn.style.opacity = 1; }, 100);
-            }
-        }
+<div class="bottom" id="textBawah"></div>
+<div class="ttd" id="ttd"></div>
+<div class="next" id="nextMsg"></div>
 
-        function bukaPesan() {
-            // Sembunyikan tombol
-            btn.style.display = "none";
-            // Tampilkan konten HBD
-            kontenHbd.style.display = "block";
-            setTimeout(() => {
-                kontenHbd.style.opacity = 1;
-                mulaiNgetik2();
-            }, 100);
-        }
+<script>
+const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
+const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
+const ttd = "to satria\nby zia";
 
-        function mulaiNgetik2() {
-            if (j < pesan2.length) {
-                text2.innerHTML += pesan2.charAt(j);
-                j++;
-                setTimeout(mulaiNgetik2, 120);
-            }
-        }
+let teksSelesai = false;
+let videoSelesai = false;
 
-        window.onload = mulaiNgetik1;
-    </script>
+function cekSelesai(){
+  if(teksSelesai && videoSelesai){
+    setTimeout(() => {
+      document.body.classList.add("fade-out");
+    }, 1200);
+  }
+}
+
+function ketik(el, text, speed=38, callback){
+  let i = 0;
+  function ngetik(){
+    if(i < text.length){
+      el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+      i++;
+      setTimeout(ngetik, speed);
+    } else if(callback){
+      callback();
+    }
+  }
+  ngetik();
+}
+
+const start = document.getElementById("startScreen");
+const video = document.getElementById("vid");
+
+function mulai(){
+  start.style.display = "none";
+  video.play();
+
+  ketik(document.getElementById("textAtas"), atas, 38, () => {
+    setTimeout(() => {
+      ketik(document.getElementById("textBawah"), bawah, 38, () => {
+        setTimeout(() => {
+          ketik(document.getElementById("ttd"), ttd, 40, () => {
+
+            // tambahan tulisan bawah
+            ketik(document.getElementById("nextMsg"), 
+            "geser kekiri atau back ya soalnya belum kelar", 35, () => {
+              teksSelesai = true;
+              cekSelesai();
+            });
+
+          });
+        }, 500);
+      });
+    }, 500);
+  });
+}
+
+function gamau(){
+  document.getElementById("msg").style.display = "block";
+}
+
+video.onended = () => {
+  videoSelesai = true;
+  cekSelesai();
+};
+</script>
 
 </body>
 </html>
-
