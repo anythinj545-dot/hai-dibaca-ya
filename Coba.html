@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Video Shatter Effect</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: black;
+  overflow: hidden;
+}
+
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.shard {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.2);
+  animation: break 1.5s forwards;
+}
+
+@keyframes break {
+  to {
+    transform: translate(var(--x), var(--y)) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.fade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: 2s;
+}
+</style>
+</head>
+<body>
+
+<video id="vid" autoplay muted playsinline>
+  <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
+</video>
+
+<div id="canvas"></div>
+<div class="fade" id="fade"></div>
+
+<script>
+const video = document.getElementById("vid");
+const canvas = document.getElementById("canvas");
+const fade = document.getElementById("fade");
+
+video.addEventListener("timeupdate", () => {
+  if (video.duration - video.currentTime < 2) {
+    triggerShatter();
+  }
+});
+
+function triggerShatter() {
+  if (canvas.childElementCount > 0) return;
+
+  const cols = 8;
+  const rows = 12;
+
+  for (let i = 0; i < cols * rows; i++) {
+    const shard = document.createElement("div");
+    shard.className = "shard";
+
+    const x = (i % cols) * 60;
+    const y = Math.floor(i / cols) * 60;
+
+    shard.style.left = x + "px";
+    shard.style.top = y + "px";
+
+    shard.style.setProperty("--x", (Math.random() * 600 - 300) + "px");
+    shard.style.setProperty("--y", (Math.random() * 600 - 300) + "px");
+
+    canvas.appendChild(shard);
+  }
+
+  setTimeout(() => {
+    fade.style.opacity = 1;
+  }, 1200);
+}
+</script>
+
+</body>
+</html>
