@@ -7,7 +7,7 @@
 <style>
   body {
     margin: 0;
-    background: #f5efe6; /* cream */
+    background: #f5efe6;
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
     padding: 30px 20px;
@@ -18,14 +18,14 @@
     max-width: 320px;
     margin: auto;
     color: #5c4a3d;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 1.7;
+    line-height: 1.8;
     min-height: 60px;
   }
 
   .video-box {
-    margin-top: 20px;
+    margin-top: 25px;
     overflow: hidden;
     border-radius: 14px;
     display: inline-block;
@@ -33,25 +33,24 @@
 
   video {
     width: 320px;
-    transform: scale(1.2); /* zoom */
+    transform: scale(1.2);
   }
 
   .bottom {
-    margin-top: 20px;
+    margin-top: 25px;
     color: #5c4a3d;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    line-height: 1.7;
+    line-height: 1.8;
     min-height: 80px;
   }
 
   .ttd {
     margin-top: 15px;
-    font-size: 13px;
+    font-size: 14px;
     opacity: 0.8;
   }
 
-  /* efek akhir */
   .fade-out {
     animation: hilang 2s forwards;
   }
@@ -76,7 +75,7 @@
 <div class="text" id="textAtas"></div>
 
 <div class="video-box">
-  <video id="vid" autoplay>
+  <video id="vid" controls playsinline>
     <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
   </video>
 </div>
@@ -90,7 +89,7 @@ const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng 
 const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
 const ttd = "to satria\nby zia";
 
-function ketik(el, text, speed=40, callback){
+function ketik(el, text, speed=35, callback){
   let i = 0;
   function ngetik(){
     if(i < text.length){
@@ -104,7 +103,7 @@ function ketik(el, text, speed=40, callback){
   ngetik();
 }
 
-// urutan animasi
+// animasi teks
 ketik(document.getElementById("textAtas"), atas, 35, () => {
   setTimeout(() => {
     ketik(document.getElementById("textBawah"), bawah, 35, () => {
@@ -115,7 +114,7 @@ ketik(document.getElementById("textAtas"), atas, 35, () => {
   }, 500);
 });
 
-// efek akhir saat video selesai
+// efek akhir setelah video selesai
 const video = document.getElementById("vid");
 video.onended = () => {
   document.body.classList.add("fade-out");
