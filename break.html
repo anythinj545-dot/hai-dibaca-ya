@@ -19,11 +19,36 @@
     inset: 0;
     background: #000;
     display: flex;
+    flex-direction: column; /* biar ke bawah */
     justify-content: center;
     align-items: center;
-    font-size: 18px;
     color: #a5c9ff;
     z-index: 10;
+  }
+
+  .start h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    padding: 10px 20px;
+    margin: 8px;
+    border-radius: 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .lanjut {
+    background: #a5c9ff;
+    color: #000;
+    font-weight: 600;
+  }
+
+  .gamau {
+    background: transparent;
+    color: #a5c9ff;
   }
 
   .text, .bottom, .ttd {
@@ -76,12 +101,26 @@
       transform: translateY(-50px);
     }
   }
+
+  .msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a5c9ff;
+    display: none;
+  }
 </style>
 </head>
 
 <body>
 
-<div class="start" id="startScreen">for u ia ❤️‍🩹 </div>
+<div class="start" id="startScreen">
+  <h2>for u ❤️‍🩹</h2>
+
+  <button class="btn lanjut" onclick="mulai()">lanjut</button>
+  <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
+
+  <div class="msg" id="msg">sih? bisane gmau lnjt!! pnct lnjt 😡</div>
+</div>
 
 <div class="text" id="textAtas"></div>
 
@@ -106,7 +145,7 @@ function cekSelesai(){
   if(teksSelesai && videoSelesai){
     setTimeout(() => {
       document.body.classList.add("fade-out");
-    }, 1200); // jeda biar makin feel
+    }, 1200);
   }
 }
 
@@ -127,7 +166,7 @@ function ketik(el, text, speed=38, callback){
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
 
-start.onclick = () => {
+function mulai(){
   start.style.display = "none";
   video.play();
 
@@ -143,7 +182,11 @@ start.onclick = () => {
       });
     }, 500);
   });
-};
+}
+
+function gamau(){
+  document.getElementById("msg").style.display = "block";
+}
 
 video.onended = () => {
   videoSelesai = true;
