@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>for you</title>
+
+<style>
+  body {
+    margin: 0;
+    background: #000;
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 30px 20px;
+    overflow: hidden;
+  }
+
+  .start {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    color: #a5c9ff;
+    z-index: 10;
+  }
+
+  .text, .bottom, .ttd {
+    max-width: 260px; /* biar menurun */
+    margin: auto;
+    color: #a5c9ff; /* biru pastel */
+    line-height: 1.9;
+    word-wrap: break-word;
+  }
+
+  .text {
+    font-size: 17px;
+    font-weight: 700; /* tebel */
+    min-height: 60px;
+  }
+
+  .bottom {
+    margin-top: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 80px;
+  }
+
+  .ttd {
+    margin-top: 20px;
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .video-box {
+    margin-top: 25px;
+    overflow: hidden;
+    border-radius: 14px;
+    display: inline-block;
+  }
+
+  video {
+    width: 280px;
+    transform: scale(1.25);
+  }
+
+  .fade-out {
+    animation: hilang 2.5s forwards;
+  }
+
+  @keyframes hilang {
+    to {
+      opacity: 0;
+      filter: blur(12px);
+      transform: translateY(-50px);
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="start" id="startScreen">tap untuk mulai 🖤</div>
+
+<div class="text" id="textAtas"></div>
+
+<div class="video-box">
+  <video id="vid" playsinline>
+    <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
+  </video>
+</div>
+
+<div class="bottom" id="textBawah"></div>
+<div class="ttd" id="ttd"></div>
+
+<script>
+const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
+const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
+const ttd = "to satria\nby zia";
+
+function ketik(el, text, speed=38, callback){
+  let i = 0;
+  function ngetik(){
+    if(i < text.length){
+      el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+      i++;
+      setTimeout(ngetik, speed);
+    } else if(callback){
+      callback();
+    }
+  }
+  ngetik();
+}
+
+const start = document.getElementById("startScreen");
+const video = document.getElementById("vid");
+
+start.onclick = () => {
+  start.style.display = "none";
+  video.play();
+
+  ketik(document.getElementById("textAtas"), atas, 38, () => {
+    setTimeout(() => {
+      ketik(document.getElementById("textBawah"), bawah, 38, () => {
+        setTimeout(() => {
+          ketik(document.getElementById("ttd"), ttd, 40);
+        }, 500);
+      });
+    }, 500);
+  });
+};
+
+video.onended = () => {
+  document.body.classList.add("fade-out");
+};
+</script>
+
+</body>
+</html>
