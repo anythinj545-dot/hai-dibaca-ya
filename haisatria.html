@@ -2,27 +2,124 @@
 <html>
 <head>
   <title>Hai kamu 💌</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      padding: 50px 20px;
+    }
+
+    h2 {
+      color: #7aa7ff;
+      font-weight: 700;
+    }
+
+    p {
+      color: #7aa7ff;
+      font-size: 16px;
+    }
+
+    a {
+      display: block;
+      margin: 20px;
+      font-size: 18px;
+      color: #7aa7ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .locked {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .warning {
+      color: #7aa7ff;
+      font-size: 14px;
+      margin-top: 20px;
+      display: none;
+    }
+
+    .end {
+      margin-top: 40px;
+      display: none;
+      color: #7aa7ff;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.8;
+    }
+  </style>
 </head>
-<body style="text-align:center; font-family:Arial; background:#ffeef5; padding:50px;">
+
+<body>
 
   <h2>💖 Hai, dibaca ya</h2>
   <p>baca satu satu:</p>
 
-  <a href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2"
-     style="display:block; margin:20px; font-size:18px;">
-     💌🎂 inii duluu yang di klik y 🎂💌
+  <a id="link1" href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2">
+    💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
-  <a href="https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html"
-     style="display:block; margin:20px; font-size:18px;">
-     💌 im sorry n makasi ya 💌
+  <a id="link2" class="locked" href="#">
+    💌 im sorry n makasi ya 💌
   </a>
 
-  <!-- link tambahan -->
-  <a href="https://anythinj545-dot.github.io/hai-dibaca-ya/break.html"
-     style="display:block; margin-top:40px; font-size:16px; opacity:0.7;">
-     end
+  <a id="link3" class="locked" href="#">
+    end
   </a>
+
+  <div class="warning" id="warn">
+    kan uda dibilang satu satu jangan langsungg yang lain hemz..
+  </div>
+
+  <div class="end" id="endText">
+    HAPPY BIRTHDAY 🎂<br><br>
+    makasi uda liat dari awal sampe akhir ya<br><br>
+    by zia<br>
+    to satria
+  </div>
+
+<script>
+let step = 1;
+
+const link1 = document.getElementById("link1");
+const link2 = document.getElementById("link2");
+const link3 = document.getElementById("link3");
+const warn = document.getElementById("warn");
+const endText = document.getElementById("endText");
+
+// kalau klik link 1
+link1.onclick = () => {
+  step = 2;
+  link2.classList.remove("locked");
+  link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
+};
+
+// kalau klik link 2 sebelum waktunya
+link2.onclick = (e) => {
+  if(step < 2){
+    e.preventDefault();
+    warn.style.display = "block";
+  } else {
+    step = 3;
+    link3.classList.remove("locked");
+    link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
+  }
+};
+
+// kalau klik link 3 sebelum waktunya
+link3.onclick = (e) => {
+  if(step < 3){
+    e.preventDefault();
+    warn.style.display = "block";
+  } else {
+    setTimeout(() => {
+      endText.style.display = "block";
+    }, 500);
+  }
+};
+</script>
 
 </body>
 </html>
