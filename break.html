@@ -19,16 +19,11 @@
     inset: 0;
     background: #000;
     display: flex;
-    flex-direction: column; /* biar ke bawah */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #a5c9ff;
     z-index: 10;
-  }
-
-  .start h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
   }
 
   .btn {
@@ -49,6 +44,13 @@
   .gamau {
     background: transparent;
     color: #a5c9ff;
+  }
+
+  .msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a5c9ff;
+    display: none;
   }
 
   .text, .bottom, .ttd {
@@ -102,11 +104,22 @@
     }
   }
 
-  .msg {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #a5c9ff;
-    display: none;
+  .end-text {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: red;
+    opacity: 0;
+    z-index: 999;
+    transition: 1s ease;
+  }
+
+  .end-text.show {
+    opacity: 1;
   }
 </style>
 </head>
@@ -133,23 +146,18 @@
 <div class="bottom" id="textBawah"></div>
 <div class="ttd" id="ttd"></div>
 
+<div class="end-text" id="endText">END</div>
+
 <script>
 const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
 const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
 const ttd = "to satria\nby zia";
 
-let teksSelesai = false;
-let videoSelesai = false;
+const start = document.getElementById("startScreen");
+const video = document.getElementById("vid");
+const endText = document.getElementById("endText");
 
-function cekSelesai(){
-  if(teksSelesai && videoSelesai){
-    setTimeout(() => {
-      document.body.classList.add("fade-out");
-    }, 1200);
-  }
-}
-
-function ketik(el, text, speed=38, callback){
+function ketik(el, text, speed = 38, callback){
   let i = 0;
   function ngetik(){
     if(i < text.length){
@@ -163,35 +171,48 @@ function ketik(el, text, speed=38, callback){
   ngetik();
 }
 
-const start = document.getElementById("startScreen");
-const video = document.getElementById("vid");
-
 function mulai(){
   start.style.display = "none";
   video.play();
 
   ketik(document.getElementById("textAtas"), atas, 38, () => {
     setTimeout(() => {
+
       ketik(document.getElementById("textBawah"), bawah, 38, () => {
         setTimeout(() => {
+
           ketik(document.getElementById("ttd"), ttd, 40, () => {
-            teksSelesai = true;
-            cekSelesai();
+
+            triggerEnd();
+
           });
+
         }, 500);
       });
+
     }, 500);
   });
+}
+
+function triggerEnd(){
+
+  // ⏳ kasih waktu biar teks sempat dibaca
+  setTimeout(() => {
+
+    // blur + fade video
+    video.classList.add("fade-out");
+
+    // END muncul setelah video mulai hilang
+    setTimeout(() => {
+      endText.classList.add("show");
+    }, 1200);
+
+  }, 4500); // waktu baca teks sebelum efek mulai
 }
 
 function gamau(){
   document.getElementById("msg").style.display = "block";
 }
-
-video.onended = () => {
-  videoSelesai = true;
-  cekSelesai();
-};
 </script>
 
 </body>
