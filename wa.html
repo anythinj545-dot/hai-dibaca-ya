@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Hai kamu 💌</title>
+
   <style>
     body {
       text-align: center;
@@ -10,14 +11,56 @@
       padding: 50px 20px;
     }
 
-    h2 {
-      color: #7aa7ff;
-      font-weight: 700;
+    /* 🔐 PASSCODE */
+    .pass-box {
+      margin-top: 120px;
+      animation: fadeIn 0.8s ease;
     }
 
-    p {
-      color: #7aa7ff;
+    input {
+      padding: 12px;
       font-size: 16px;
+      border: 2px solid #7aa7ff;
+      border-radius: 10px;
+      outline: none;
+      text-align: center;
+      color: #7aa7ff;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #7aa7ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .error {
+      color: #7aa7ff;
+      margin-top: 10px;
+      display: none;
+      font-size: 14px;
+    }
+
+    /* 💥 shake effect */
+    .shake {
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* 🔵 MAIN */
+    .hidden {
+      display: none;
     }
 
     a {
@@ -29,7 +72,6 @@
       font-weight: 600;
       opacity: 0.4;
       pointer-events: none;
-      transition: 0.3s;
     }
 
     a.active {
@@ -44,7 +86,7 @@
       display: none;
     }
 
-    /* 🌸 ENDING PINK */
+    /* 🌸 ENDING */
     .end {
       margin-top: 40px;
       display: none;
@@ -52,9 +94,10 @@
       font-size: 18px;
       font-weight: 600;
       line-height: 1.8;
+      animation: fadeIn 1s ease;
     }
 
-    /* 💗 WA BUTTON + HEARTBEAT */
+    /* 💗 WA BUTTON HEARTBEAT */
     .wa-button {
       display: inline-block;
       margin-top: 20px;
@@ -69,57 +112,92 @@
     }
 
     @keyframes heartbeat {
-      0%   { transform: scale(1); }
-      25%  { transform: scale(1.08); }
-      40%  { transform: scale(1); }
-      60%  { transform: scale(1.12); }
+      0% { transform: scale(1); }
+      25% { transform: scale(1.08); }
+      40% { transform: scale(1); }
+      60% { transform: scale(1.12); }
       100% { transform: scale(1); }
+    }
+
+    /* 🌫 fade */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
 
-  <h2>💖 Hai, dibaca ya</h2>
-  <p>baca satu satu:</p>
+<!-- 🔐 PASSCODE -->
+<div class="pass-box" id="passBox">
+  <h3 style="color:#7aa7ff;">masukin passcode 💙</h3>
+  <input id="code" placeholder="9april">
+  <br>
+  <button onclick="checkCode()">masuk</button>
+  <div class="error" id="error">salah passcode 😭</div>
+</div>
 
-  <!-- LINK 1 -->
+<!-- 🔵 CONTENT -->
+<div id="mainContent" class="hidden">
+
   <a id="link1" class="active"
      href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2">
     💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
-  <!-- LINK 2 -->
   <a id="link2" href="#">
     💌 im sorry n makasi ya 💌
   </a>
 
-  <!-- LINK 3 -->
   <a id="link3" href="#">
     end
   </a>
 
   <div class="warning" id="warn">
-    kan uda dibilang satu satu jangan langsungg yang lain hemz..
+    jangan loncat ya 😌
   </div>
 
-  <!-- 🌸 ENDING -->
-  <div class="end" id="endText">
-    HAPPY BIRTHDAY 🎂<br><br>
-    makasi uda liat dari awal sampe akhir ya<br><br>
+</div>
 
-    <a class="wa-button"
-       href="https://wa.me/6285642180294"
-       target="_blank">
-      contact me
-    </a>
+<!-- 🌸 ENDING -->
+<div class="end" id="endText">
+  HAPPY BIRTHDAY 🎂<br><br>
+  makasi uda liat dari awal sampe akhir ya<br><br>
 
-    <br><br>
-    by zia to satria
-  </div>
+  <a class="wa-button"
+     href="https://wa.me/6285642180294"
+     target="_blank">
+    contact me
+  </a>
+
+  <br><br>
+  by zia to satria
+</div>
 
 <script>
 let step = 1;
+
+function checkCode(){
+  const code = document.getElementById("code").value;
+  const error = document.getElementById("error");
+  const box = document.getElementById("passBox");
+
+  if(code === "9april"){
+    box.style.animation = "fadeIn 0.5s ease reverse";
+    setTimeout(() => {
+      box.style.display = "none";
+      document.getElementById("mainContent").classList.remove("hidden");
+    }, 300);
+  } else {
+    error.style.display = "block";
+    box.classList.add("shake");
+
+    setTimeout(() => {
+      box.classList.remove("shake");
+    }, 400);
+  }
+}
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -127,14 +205,14 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
-// link 1 → unlock 2
+// link 1
 link1.onclick = () => {
   step = 2;
   link2.classList.add("active");
   link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
 };
 
-// link 2 → unlock 3
+// link 2
 link2.onclick = (e) => {
   if(step < 2){
     e.preventDefault();
@@ -146,7 +224,7 @@ link2.onclick = (e) => {
   }
 };
 
-// link 3 → show ending
+// link 3
 link3.onclick = (e) => {
   if(step < 3){
     e.preventDefault();
@@ -154,11 +232,11 @@ link3.onclick = (e) => {
   } else {
     setTimeout(() => {
       endText.style.display = "block";
-      window.scrollTo(0, 0);
+      endText.scrollIntoView({ behavior: "smooth" });
     }, 500);
   }
 };
 </script>
 
 </body>
-</html>
+  </html>
