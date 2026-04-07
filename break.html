@@ -159,21 +159,27 @@ const endText = document.getElementById("endText");
 
 function ketik(el, text, speed = 38, callback){
   let i = 0;
-  function ngetik(){
+  el.innerHTML = "";
+
+  function run(){
     if(i < text.length){
       el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
       i++;
-      setTimeout(ngetik, speed);
-    } else if(callback){
-      callback();
+      setTimeout(run, speed);
+    } else {
+      if(callback) callback();
     }
   }
-  ngetik();
+  run();
 }
 
-function mulai(){
+async function mulai(){
   start.style.display = "none";
-  video.play();
+
+  // 🔥 FIX video aman semua device
+  try {
+    await video.play();
+  } catch (e) {}
 
   ketik(document.getElementById("textAtas"), atas, 38, () => {
     setTimeout(() => {
@@ -183,7 +189,10 @@ function mulai(){
 
           ketik(document.getElementById("ttd"), ttd, 40, () => {
 
-            triggerEnd();
+            // tunggu biar kebaca dulu
+            setTimeout(() => {
+              triggerEnd();
+            }, 4500);
 
           });
 
@@ -195,19 +204,11 @@ function mulai(){
 }
 
 function triggerEnd(){
+  video.classList.add("fade-out");
 
-  // ⏳ kasih waktu biar teks sempat dibaca
   setTimeout(() => {
-
-    // blur + fade video
-    video.classList.add("fade-out");
-
-    // END muncul setelah video mulai hilang
-    setTimeout(() => {
-      endText.classList.add("show");
-    }, 1200);
-
-  }, 4500); // waktu baca teks sebelum efek mulai
+    endText.classList.add("show");
+  }, 1200);
 }
 
 function gamau(){
@@ -216,4 +217,4 @@ function gamau(){
 </script>
 
 </body>
-</html>
+  </html>
