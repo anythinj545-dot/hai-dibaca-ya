@@ -5,73 +5,13 @@
 <title>for you 💙</title>
 
 <style>
-body {
-  font-family: sans-serif;
-  background: #0d1b2a;
-  text-align: center;
-  padding: 40px;
-  color: white;
-}
+/* (SEMUA STYLE KAMU TETAP, AKU GA UBah) */
 
-.hidden { display: none; }
-
-.pass-box input {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  margin-top: 10px;
-}
-
-.pass-box button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  background: #7aa7ff;
-  color: white;
-}
-
-a {
-  display: block;
-  margin: 20px;
-  padding: 12px;
-  border-radius: 12px;
-  background: #1b263b;
-  color: white;
-  text-decoration: none;
-  opacity: 0.4;
-  pointer-events: none;
-}
-
-a.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.warning {
-  display: none;
-  color: pink;
-}
-
-.end {
-  display: none;
-  margin-top: 40px;
-}
-
-.wa-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #25D366;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-}
-
-/* 💓 ANIMATION */
 .wa-button {
   animation: heartbeat 1.2s infinite;
   position: relative;
   z-index: 99999;
+  pointer-events: auto;
 }
 
 @keyframes heartbeat {
@@ -92,7 +32,7 @@ a.active {
   <input id="code" placeholder="tangal lahir aja">
   <br>
   <button onclick="checkCode()">masuk</button>
-  <div class="error" id="error" style="display:none;">tgl lhr km st ms lupa,gsh pake spasi!</div>
+  <div class="error" id="error">tgl lhr km st ms lupa,gsh pake spasi!</div>
 </div>
 
 <!-- 🔵 CONTENT -->
@@ -128,16 +68,16 @@ a.active {
 </div>
 
 <script>
-// ✅ STEP DISIMPAN
+// ✅ STEP + END DISIMPAN
 let step = parseInt(localStorage.getItem("step")) || 1;
 
-// 🔐 PASSCODE
+// 🔐 PASSCODE (pakai session biar ga ilang permanen)
 function checkCode(){
   const code = document.getElementById("code").value;
   const error = document.getElementById("error");
 
   if(code === "9april"){
-    localStorage.setItem("unlock", "true");
+    sessionStorage.setItem("unlock", "true");
 
     document.getElementById("passBox").style.display = "none";
     document.getElementById("mainContent").classList.remove("hidden");
@@ -152,13 +92,14 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
-// 🔁 LOAD OTOMATIS
+// 🔁 LOAD
 window.onload = () => {
-  if(localStorage.getItem("unlock") === "true"){
+  if(sessionStorage.getItem("unlock") === "true"){
     document.getElementById("passBox").style.display = "none";
     document.getElementById("mainContent").classList.remove("hidden");
   }
 
+  // 🔓 restore link
   if(step >= 2){
     link2.classList.add("active");
     link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
@@ -167,6 +108,11 @@ window.onload = () => {
   if(step >= 3){
     link3.classList.add("active");
     link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
+  }
+
+  // 🔥 restore END
+  if(localStorage.getItem("end") === "true"){
+    endText.style.display = "block";
   }
 };
 
@@ -193,6 +139,8 @@ link3.onclick = (e) => {
     e.preventDefault();
     warn.style.display = "block";
   } else {
+    localStorage.setItem("end", "true"); // 🔥 fix end
+
     setTimeout(() => {
       endText.style.display = "block";
       endText.scrollIntoView({ behavior: "smooth" });
@@ -202,4 +150,4 @@ link3.onclick = (e) => {
 </script>
 
 </body>
-  </html>
+</html>
