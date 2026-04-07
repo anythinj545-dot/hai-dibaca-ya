@@ -14,13 +14,12 @@
     overflow: hidden;
   }
 
-  /* 🔥 START HARUS SIMPLE (INI KUNCI FIX) */
+  /* START SCREEN */
   .start {
     position: fixed;
     inset: 0;
     background: #000;
     z-index: 999999;
-    display: block;
     padding-top: 35vh;
     text-align: center;
   }
@@ -32,12 +31,8 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
-
-    /* 🔥 WAJIB */
     position: relative;
     z-index: 9999999;
-    pointer-events: auto;
-    touch-action: manipulation;
   }
 
   .lanjut {
@@ -58,22 +53,23 @@
     display: none;
   }
 
+  /* TEXT */
   .text, .bottom, .ttd {
     max-width: 260px;
     margin: auto;
     color: #a5c9ff;
     line-height: 1.9;
-    word-wrap: break-word;
   }
 
   .text { font-size: 17px; font-weight: 700; min-height: 60px; }
   .bottom { margin-top: 25px; font-size: 16px; font-weight: 600; min-height: 80px; }
   .ttd { margin-top: 20px; font-size: 14px; opacity: 0.8; }
 
+  /* VIDEO */
   .video-box {
     margin-top: 25px;
-    overflow: hidden;
     border-radius: 14px;
+    overflow: hidden;
     display: inline-block;
   }
 
@@ -82,6 +78,7 @@
     transform: scale(1.25);
   }
 
+  /* END */
   .end {
     position: fixed;
     inset: 0;
@@ -89,7 +86,7 @@
     align-items: center;
     justify-content: center;
     color: red;
-    font-size: 36px;
+    font-size: 38px;
     font-weight: bold;
     opacity: 0;
     transition: 1s ease;
@@ -118,7 +115,8 @@
 <div class="text" id="textAtas"></div>
 
 <div class="video-box">
-  <video id="vid" playsinline preload="auto">
+  <!-- 🔥 FIX AUDIO AUTOPLAY -->
+  <video id="vid" playsinline autoplay preload="auto">
     <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
   </video>
 </div>
@@ -130,7 +128,7 @@
 
 <script>
 const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
-const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
+const bawah = "makasi buat semuanya ya sat..\n\naku bikin ini bukan tanpa alasan, aku cuma pengen kamu tau aku bener bener menghargai semuanya..";
 const ttd = "to satria\nby zia";
 
 const start = document.getElementById("startScreen");
@@ -153,8 +151,15 @@ function ketik(el, text, speed=38, cb){
 
 function mulai(){
   start.style.display = "none";
-  video.muted = true;
-  video.play().catch(()=>{});
+
+  /* 🔥 FIX AUDIO PALING PENTING */
+  video.muted = false;
+  video.volume = 1;
+
+  video.play().catch(() => {
+    video.muted = false;
+    video.play();
+  });
 
   ketik(document.getElementById("textAtas"), atas, 38, () => {
     setTimeout(() => {
