@@ -49,10 +49,53 @@
       font-weight: 600;
       line-height: 1.8;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    /* 💗 PINK PASTEL */
+    #passBox h2 {
+      color: #ff9ecb;
+    }
+
+    #error {
+      color: #ff9ecb;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ff9ecb;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 8px;
+      background: #ff9ecb;
+      color: white;
+    }
   </style>
 </head>
 
 <body>
+
+<!-- 🔐 PASSCODE -->
+<div id="passBox">
+  <h2>masukin passcode 🔐</h2>
+  <input id="code" placeholder="tangal lahir aja tanpa spasi">
+  <br>
+  <button onclick="checkCode()">masuk</button>
+  <div id="error" style="display:none;">
+    tanggal lahir sndr ms hrs d ksi tau
+  </div>
+</div>
+
+<!-- 🔵 ISI -->
+<div id="mainContent" class="hidden">
 
   <h2>💖 Hai, dibaca ya</h2>
   <p>baca satu satu:</p>
@@ -76,12 +119,36 @@
   <div class="end" id="endText">
     HAPPY BIRTHDAY 🎂<br><br>
     makasi uda liat dari awal sampe akhir ya<br><br>
+
+    <a href="https://wa.me/6285642180294" target="_blank" style="color:#ff9ecb;">
+     💌 contact me zia 💬
+    </a>
+
+    <br><br>
     by zia<br>
     to satria
   </div>
 
+</div>
+
 <script>
-let step = 1;
+// 🔐 PASSCODE SEKALI AJA
+function checkCode(){
+  const code = document.getElementById("code").value;
+  const error = document.getElementById("error");
+
+  if(code === "9april"){
+    localStorage.setItem("unlock", "true");
+
+    document.getElementById("passBox").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+  } else {
+    error.style.display = "block";
+  }
+}
+
+// 🔥 FIX STEP
+let step = parseInt(localStorage.getItem("step")) || 1;
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -89,31 +156,58 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
-// kalau klik link 1
+// 🔁 LOAD
+window.onload = () => {
+
+  // 🔓 kalau sudah pernah buka → skip passcode
+  if(localStorage.getItem("unlock") === "true"){
+    document.getElementById("passBox").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+  }
+
+  if(step >= 2){
+    link2.classList.remove("locked");
+    link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
+  }
+
+  if(step >= 3){
+    link3.classList.remove("locked");
+    link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
+  }
+
+  if(localStorage.getItem("end") === "true"){
+    endText.style.display = "block";
+  }
+};
+
+// link 1
 link1.onclick = () => {
   step = 2;
+  localStorage.setItem("step", step);
   link2.classList.remove("locked");
   link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
 };
 
-// kalau klik link 2 sebelum waktunya
+// link 2
 link2.onclick = (e) => {
   if(step < 2){
     e.preventDefault();
     warn.style.display = "block";
   } else {
     step = 3;
+    localStorage.setItem("step", step);
     link3.classList.remove("locked");
     link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
   }
 };
 
-// kalau klik link 3 sebelum waktunya
+// link 3
 link3.onclick = (e) => {
   if(step < 3){
     e.preventDefault();
     warn.style.display = "block";
   } else {
+    localStorage.setItem("end", "true");
     setTimeout(() => {
       endText.style.display = "block";
     }, 500);
