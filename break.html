@@ -5,92 +5,79 @@
 <title>for you</title>
 
 <style>
-  body {
-    margin: 0;
-    background: #000;
-    font-family: sans-serif;
-    text-align: center;
-    padding: 30px 20px;
-    overflow: hidden;
-  }
+body{
+  margin:0;
+  background:#000;
+  font-family:sans-serif;
+  text-align:center;
+  padding:30px 20px;
+  overflow:hidden;
+}
 
-  .start {
-    position: fixed;
-    inset: 0;
-    background: #000;
-    z-index: 999999;
-    padding-top: 35vh;
-  }
+.start{
+  position:fixed;
+  inset:0;
+  background:#000;
+  z-index:9999;
+  padding-top:35vh;
+}
 
-  .btn {
-    padding: 12px 22px;
-    margin: 10px;
-    border-radius: 20px;
-    border: none;
-    font-size: 16px;
-  }
+.btn{
+  padding:12px 22px;
+  margin:10px;
+  border:none;
+  border-radius:20px;
+  font-size:16px;
+}
 
-  .lanjut { background: #a5c9ff; color: #000; }
-  .gamau { background: transparent; color: #a5c9ff; }
+.lanjut{background:#a5c9ff;color:#000;}
+.gamau{background:transparent;color:#a5c9ff;}
 
-  .msg {
-    color: #a5c9ff;
-    display: none;
-    margin-top: 10px;
-  }
+.text,.bottom,.ttd{
+  color:#a5c9ff;
+  max-width:260px;
+  margin:auto;
+  line-height:1.8;
+}
 
-  .text, .bottom, .ttd {
-    max-width: 260px;
-    margin: auto;
-    color: #a5c9ff;
-    line-height: 1.8;
-  }
+video{
+  width:280px;
+  border-radius:10px;
+  margin-top:15px;
+}
 
-  .video-box {
-    margin-top: 20px;
-  }
+.end{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:40px;
+  color:red;
+  opacity:0;
+  transition:1s;
+}
 
-  video {
-    width: 280px;
-    border-radius: 10px;
-  }
-
-  .end {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 40px;
-    color: red;
-    opacity: 0;
-    transition: 1s;
-  }
-
-  .end.show { opacity: 1; }
+.end.show{opacity:1;}
 </style>
 </head>
 
 <body>
 
 <div class="start" id="startScreen">
-
   <h2 style="color:#a5c9ff;">for u ❤️‍🩹</h2>
 
   <button class="btn lanjut" onclick="mulai()">lanjut</button>
   <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
 
-  <div class="msg" id="msg">yaudah 😡</div>
-
+  <div id="msg" style="display:none;color:#a5c9ff">yaudah 😡</div>
 </div>
 
 <div class="text" id="textAtas"></div>
 
-<div class="video-box">
-  <video id="vid" playsinline preload="auto">
-    <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
-  </video>
-</div>
+<video id="vid" playsinline preload="auto">
+  <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
+</video>
 
 <div class="bottom" id="textBawah"></div>
 <div class="ttd" id="ttd"></div>
@@ -99,77 +86,70 @@
 
 <script>
 
-const atas = "makasii ya ia, makasi buat semuanya...";
-const bawah = "aku bikin ini bukan tanpa alasan...";
+const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
+
+const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
+
 const ttd = "to satria\nby zia";
 
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
 const end = document.getElementById("end");
 
-function ketik(el, text, speed=35, cb){
-  let i = 0;
-  el.innerHTML = "";
-
+function ketik(el,text,speed=38,cb){
+  let i=0;
+  el.innerHTML="";
   function run(){
-    if(i < text.length){
-      el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
+    if(i<text.length){
+      el.innerHTML+=text[i]==="\n"?"<br>":text[i];
       i++;
-      setTimeout(run, speed);
+      setTimeout(run,speed);
     } else if(cb) cb();
   }
   run();
 }
 
 function mulai(){
-  start.style.display = "none";
+  start.style.display="none";
 
-  // 🔥 FIX AUDIO PALING KUAT
-  video.muted = false;
-  video.volume = 1;
+  // 🔥 audio attempt
+  video.muted=false;
+  video.volume=1;
+  video.play().catch(()=>{});
 
-  const playPromise = video.play();
+  ketik(document.getElementById("textAtas"),atas,38,()=>{
+    setTimeout(()=>{
 
-  if(playPromise !== undefined){
-    playPromise.catch(() => {
-      // fallback kalau diblok
-      video.muted = false;
-      setTimeout(() => {
-        video.play();
-      }, 300);
-    });
-  }
+      ketik(document.getElementById("textBawah"),bawah,38,()=>{
+        setTimeout(()=>{
 
-  ketik(document.getElementById("textAtas"), atas, 35, () => {
-    setTimeout(() => {
+          ketik(document.getElementById("ttd"),ttd,40,()=>{
 
-      ketik(document.getElementById("textBawah"), bawah, 35, () => {
-        setTimeout(() => {
+            // 🔥 tunggu LEBIH LAMA sebelum END
+            setTimeout(endScene, 6000);
 
-          ketik(document.getElementById("ttd"), ttd, 40, () => {
-            setTimeout(endScene, 3000);
           });
 
-        }, 500);
+        },500);
       });
 
-    }, 500);
+    },500);
   });
 }
 
 function endScene(){
-  document.querySelector(".video-box").style.opacity = 0;
-  document.getElementById("textAtas").style.opacity = 0;
-  document.getElementById("textBawah").style.opacity = 0;
-  document.getElementById("ttd").style.opacity = 0;
+  document.querySelector("video").style.opacity=0;
+  document.getElementById("textAtas").style.opacity=0;
+  document.getElementById("textBawah").style.opacity=0;
+  document.getElementById("ttd").style.opacity=0;
 
-  setTimeout(() => {
+  setTimeout(()=>{
     end.classList.add("show");
-  }, 1200);
+  },1500);
 }
 
 function gamau(){
-  document.getElementById("msg").style.display = "block";
+  document.getElementById("msg").style.display="block";
 }
 
 </script>
