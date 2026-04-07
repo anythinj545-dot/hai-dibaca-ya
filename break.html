@@ -14,7 +14,6 @@
     overflow: hidden;
   }
 
-  /* 🔥 FIX UTAMA: layer tidak boleh nutup klik */
   .start {
     position: fixed;
     inset: 0;
@@ -24,17 +23,30 @@
     justify-content: center;
     align-items: center;
     color: #a5c9ff;
-    z-index: 999999;
+    z-index: 9999;
+
+    /* 🔥 FIX CLICK BLOCK ISSUE */
     pointer-events: auto;
   }
 
+  .start * {
+    pointer-events: auto;
+  }
+
+  .start h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
   .btn {
-    padding: 14px 26px;
-    margin: 10px;
-    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 8px;
+    border-radius: 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+
+    /* 🔥 FIX TOUCH DI HP */
     pointer-events: auto;
     touch-action: manipulation;
   }
@@ -48,13 +60,6 @@
   .gamau {
     background: transparent;
     color: #a5c9ff;
-  }
-
-  .msg {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #a5c9ff;
-    display: none;
   }
 
   .text, .bottom, .ttd {
@@ -108,22 +113,11 @@
     }
   }
 
-  .end-text {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 32px;
-    font-weight: bold;
-    color: red;
-    opacity: 0;
-    z-index: 999999;
-    transition: 1s ease;
-  }
-
-  .end-text.show {
-    opacity: 1;
+  .msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a5c9ff;
+    display: none;
   }
 </style>
 </head>
@@ -133,7 +127,7 @@
 <div class="start" id="startScreen">
   <h2>for u ❤️‍🩹</h2>
 
-  <button class="btn lanjut" id="btnLanjut" type="button">lanjut</button>
+  <button class="btn lanjut" onclick="mulai()">lanjut</button>
   <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
 
   <div class="msg" id="msg">sih? bisane gmau lnjt!! 😡</div>
@@ -150,8 +144,6 @@
 <div class="bottom" id="textBawah"></div>
 <div class="ttd" id="ttd"></div>
 
-<div class="end-text" id="endText">END</div>
-
 <script>
 const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
 const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
@@ -159,12 +151,8 @@ const ttd = "to satria\nby zia";
 
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
-const endText = document.getElementById("endText");
-const btn = document.getElementById("btnLanjut");
 
-btn.addEventListener("click", mulai);
-
-function ketik(el, text, speed = 38, callback){
+function ketik(el, text, speed=38, callback){
   let i = 0;
   el.innerHTML = "";
 
@@ -180,15 +168,11 @@ function ketik(el, text, speed = 38, callback){
   run();
 }
 
-async function mulai(){
+function mulai(){
   start.style.display = "none";
 
   video.muted = true;
-  video.playsInline = true;
-
-  try {
-    await video.play();
-  } catch (e) {}
+  video.play().catch(()=>{});
 
   ketik(document.getElementById("textAtas"), atas, 38, () => {
     setTimeout(() => {
@@ -198,9 +182,26 @@ async function mulai(){
 
           ketik(document.getElementById("ttd"), ttd, 40, () => {
 
+            // 🔥 BIAR VIDEO TIDAK KELEBIHAN CEPAT END
             setTimeout(() => {
-              triggerEnd();
-            }, 4500);
+              video.classList.add("fade-out");
+
+              setTimeout(() => {
+                const end = document.createElement("div");
+                end.innerHTML = "END";
+                end.style.position = "fixed";
+                end.style.inset = "0";
+                end.style.display = "flex";
+                end.style.alignItems = "center";
+                end.style.justifyContent = "center";
+                end.style.color = "red";
+                end.style.fontSize = "32px";
+                end.style.fontWeight = "bold";
+                document.body.appendChild(end);
+
+              }, 1200);
+
+            }, 4000); // ⬅️ ini delay supaya teks masih kebaca dulu
 
           });
 
@@ -211,18 +212,10 @@ async function mulai(){
   });
 }
 
-function triggerEnd(){
-  video.classList.add("fade-out");
-
-  setTimeout(() => {
-    endText.classList.add("show");
-  }, 1200);
-}
-
 function gamau(){
   document.getElementById("msg").style.display = "block";
 }
 </script>
 
 </body>
-  </html>
+</html>
