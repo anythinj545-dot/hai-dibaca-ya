@@ -90,9 +90,11 @@
       font-size: 18px;
       font-weight: 600;
       line-height: 1.8;
+      position: relative;
+      z-index: 9999;
     }
 
-    /* 💗 WA */
+    /* 💗 WA BUTTON FIX 100% */
     .wa-button {
       display: inline-block;
       margin-top: 20px;
@@ -104,6 +106,10 @@
       font-size: 16px;
       font-weight: 600;
       animation: heartbeat 1.2s infinite;
+
+      position: relative;
+      z-index: 99999;
+      pointer-events: auto;
     }
 
     @keyframes heartbeat {
@@ -121,7 +127,7 @@
 <!-- 🔐 PASSCODE -->
 <div class="pass-box" id="passBox">
   <h3 style="color:#7aa7ff;">masukin passcode 💙</h3>
-  <input id="code" placeholder="tanggal lahir kamu">
+  <input id="code" placeholder="9april">
   <br>
   <button onclick="checkCode()">masuk</button>
   <div class="error" id="error">salah passcode 😭</div>
@@ -161,13 +167,13 @@
 <script>
 let step = 1;
 
-// 🔐 CHECK PASSCODE + SAVE STATUS
+// 🔐 PASSCODE + SAVE
 function checkCode(){
   const code = document.getElementById("code").value;
   const error = document.getElementById("error");
 
   if(code === "9april"){
-    localStorage.setItem("unlocked", "true"); // 💾 simpan status
+    localStorage.setItem("unlock", "true");
 
     document.getElementById("passBox").style.display = "none";
     document.getElementById("mainContent").classList.remove("hidden");
@@ -176,9 +182,9 @@ function checkCode(){
   }
 }
 
-// 🔁 AUTO CHECK SAAT BUKA HALAMAN
+// 🔁 AUTO SKIP PASSCODE
 window.onload = () => {
-  if(localStorage.getItem("unlocked") === "true"){
+  if(localStorage.getItem("unlock") === "true"){
     document.getElementById("passBox").style.display = "none";
     document.getElementById("mainContent").classList.remove("hidden");
   }
