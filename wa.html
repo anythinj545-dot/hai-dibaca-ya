@@ -14,7 +14,6 @@
     /* 🔐 PASSCODE */
     .pass-box {
       margin-top: 120px;
-      animation: fadeIn 0.8s ease;
     }
 
     input {
@@ -45,7 +44,6 @@
       font-size: 14px;
     }
 
-    /* 💥 shake effect */
     .shake {
       animation: shake 0.4s;
     }
@@ -58,11 +56,9 @@
       100% { transform: translateX(0); }
     }
 
-    /* 🔵 MAIN */
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
+    /* 🔵 LINK */
     a {
       display: block;
       margin: 20px;
@@ -94,10 +90,9 @@
       font-size: 18px;
       font-weight: 600;
       line-height: 1.8;
-      animation: fadeIn 1s ease;
     }
 
-    /* 💗 WA BUTTON HEARTBEAT */
+    /* 💗 WA */
     .wa-button {
       display: inline-block;
       margin-top: 20px;
@@ -118,12 +113,6 @@
       60% { transform: scale(1.12); }
       100% { transform: scale(1); }
     }
-
-    /* 🌫 fade */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 
@@ -132,7 +121,7 @@
 <!-- 🔐 PASSCODE -->
 <div class="pass-box" id="passBox">
   <h3 style="color:#7aa7ff;">masukin passcode 💙</h3>
-  <input id="code" placeholder="9april">
+  <input id="code" placeholder="tanggal lahir kamu">
   <br>
   <button onclick="checkCode()">masuk</button>
   <div class="error" id="error">salah passcode 😭</div>
@@ -146,17 +135,11 @@
     💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
-  <a id="link2" href="#">
-    💌 im sorry n makasi ya 💌
-  </a>
+  <a id="link2" href="#">💌 im sorry n makasi ya 💌</a>
 
-  <a id="link3" href="#">
-    end
-  </a>
+  <a id="link3" href="#">end</a>
 
-  <div class="warning" id="warn">
-    jangan loncat ya 😌
-  </div>
+  <div class="warning" id="warn">jangan loncat ya 😌</div>
 
 </div>
 
@@ -178,26 +161,28 @@
 <script>
 let step = 1;
 
+// 🔐 CHECK PASSCODE + SAVE STATUS
 function checkCode(){
   const code = document.getElementById("code").value;
   const error = document.getElementById("error");
-  const box = document.getElementById("passBox");
 
   if(code === "9april"){
-    box.style.animation = "fadeIn 0.5s ease reverse";
-    setTimeout(() => {
-      box.style.display = "none";
-      document.getElementById("mainContent").classList.remove("hidden");
-    }, 300);
+    localStorage.setItem("unlocked", "true"); // 💾 simpan status
+
+    document.getElementById("passBox").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
   } else {
     error.style.display = "block";
-    box.classList.add("shake");
-
-    setTimeout(() => {
-      box.classList.remove("shake");
-    }, 400);
   }
 }
+
+// 🔁 AUTO CHECK SAAT BUKA HALAMAN
+window.onload = () => {
+  if(localStorage.getItem("unlocked") === "true"){
+    document.getElementById("passBox").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+  }
+};
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -224,7 +209,7 @@ link2.onclick = (e) => {
   }
 };
 
-// link 3
+// link 3 → END
 link3.onclick = (e) => {
   if(step < 3){
     e.preventDefault();
