@@ -19,7 +19,6 @@
       font-weight: 600;
       opacity: 0.4;
       pointer-events: none;
-      transition: 0.3s;
     }
 
     a.active {
@@ -34,11 +33,10 @@
       display: none;
     }
 
-    /* 🌸 ENDING PINK PASTEL */
     .end {
       margin-top: 40px;
       display: none;
-      color: #ff8fb1; /* pink pastel */
+      color: #ff8fb1;
       font-size: 18px;
       font-weight: 600;
       line-height: 1.8;
@@ -48,58 +46,57 @@
       display: inline-block;
       margin-top: 20px;
       padding: 12px 18px;
-      background: #ff8fb1; /* pink pastel */
+      background: #ff8fb1;
       color: white;
       border-radius: 10px;
       text-decoration: none;
       font-size: 16px;
       font-weight: 600;
-      transition: 0.3s;
-    }
-
-    .wa-button:hover {
-      transform: scale(1.05);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- LINK 1 -->
+<!-- 🔵 BAGIAN AWAL -->
+<div id="startSection">
+
   <a id="link1" class="active"
      href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2">
     💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
-  <!-- LINK 2 -->
   <a id="link2" href="#">
     💌 im sorry n makasi ya 💌
   </a>
 
-  <!-- LINK 3 -->
   <a id="link3" href="#">
     end
   </a>
 
   <div class="warning" id="warn">
-    jangan loncat ya, ikutin alurnya 😌
+    kan uda dibilang satu satu jangan langsungg yang lain hemz..
   </div>
 
-  <!-- 🌸 ENDING -->
-  <div class="end" id="endText">
-    HAPPY BIRTHDAY 🎂<br><br>
-    makasi uda liat dari awal sampe akhir ya<br><br>
+</div>
 
-    <a class="wa-button" href="https://wa.me/6285642180294" target="_blank">
-      contact me
-    </a>
+<!-- 🌸 ENDING -->
+<div class="end" id="endText">
+  HAPPY BIRTHDAY 🎂<br><br>
+  makasi uda liat dari awal sampe akhir ya<br><br>
 
-    <br><br>
-    by zia to satria
-  </div>
+  <a class="wa-button" href="https://wa.me/6285642180294" target="_blank">
+    contact me
+  </a>
+
+  <br><br>
+  by zia to satria
+</div>
 
 <script>
 let step = 1;
+
+const startSection = document.getElementById("startSection");
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -107,14 +104,14 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
-// LINK 1 → unlock 2
+// link 1
 link1.onclick = () => {
   step = 2;
   link2.classList.add("active");
   link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
 };
 
-// LINK 2 → unlock 3
+// link 2
 link2.onclick = (e) => {
   if(step < 2){
     e.preventDefault();
@@ -126,14 +123,16 @@ link2.onclick = (e) => {
   }
 };
 
-// LINK 3 → show ending
+// link 3 → ending + HAPUS BAGIAN AWAL
 link3.onclick = (e) => {
   if(step < 3){
     e.preventDefault();
     warn.style.display = "block";
   } else {
     setTimeout(() => {
+      startSection.style.display = "none"; // 🔥 INI KUNCINYA
       endText.style.display = "block";
+      window.scrollTo(0, 0);
     }, 500);
   }
 };
