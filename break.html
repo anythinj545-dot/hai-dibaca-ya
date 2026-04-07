@@ -8,94 +8,66 @@
   body {
     margin: 0;
     background: #000;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: sans-serif;
     text-align: center;
     padding: 30px 20px;
     overflow: hidden;
   }
 
-  /* START SCREEN */
   .start {
     position: fixed;
     inset: 0;
     background: #000;
     z-index: 999999;
     padding-top: 35vh;
-    text-align: center;
   }
 
   .btn {
     padding: 12px 22px;
     margin: 10px;
     border-radius: 20px;
-    font-size: 16px;
     border: none;
-    cursor: pointer;
-    position: relative;
-    z-index: 9999999;
+    font-size: 16px;
   }
 
-  .lanjut {
-    background: #a5c9ff;
-    color: #000;
-    font-weight: 600;
-  }
-
-  .gamau {
-    background: transparent;
-    color: #a5c9ff;
-  }
+  .lanjut { background: #a5c9ff; color: #000; }
+  .gamau { background: transparent; color: #a5c9ff; }
 
   .msg {
-    margin-top: 10px;
-    font-size: 14px;
     color: #a5c9ff;
     display: none;
+    margin-top: 10px;
   }
 
-  /* TEXT */
   .text, .bottom, .ttd {
     max-width: 260px;
     margin: auto;
     color: #a5c9ff;
-    line-height: 1.9;
+    line-height: 1.8;
   }
 
-  .text { font-size: 17px; font-weight: 700; min-height: 60px; }
-  .bottom { margin-top: 25px; font-size: 16px; font-weight: 600; min-height: 80px; }
-  .ttd { margin-top: 20px; font-size: 14px; opacity: 0.8; }
-
-  /* VIDEO */
   .video-box {
-    margin-top: 25px;
-    border-radius: 14px;
-    overflow: hidden;
-    display: inline-block;
+    margin-top: 20px;
   }
 
   video {
     width: 280px;
-    transform: scale(1.25);
+    border-radius: 10px;
   }
 
-  /* END */
   .end {
     position: fixed;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 40px;
     color: red;
-    font-size: 38px;
-    font-weight: bold;
     opacity: 0;
-    transition: 1s ease;
-    z-index: 99999;
+    transition: 1s;
   }
 
-  .end.show {
-    opacity: 1;
-  }
+  .end.show { opacity: 1; }
 </style>
 </head>
 
@@ -108,15 +80,14 @@
   <button class="btn lanjut" onclick="mulai()">lanjut</button>
   <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
 
-  <div class="msg" id="msg">sih? bisane gmau lnjt!! 😡</div>
+  <div class="msg" id="msg">yaudah 😡</div>
 
 </div>
 
 <div class="text" id="textAtas"></div>
 
 <div class="video-box">
-  <!-- 🔥 FIX AUDIO AUTOPLAY -->
-  <video id="vid" playsinline autoplay preload="auto">
+  <video id="vid" playsinline preload="auto">
     <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
   </video>
 </div>
@@ -127,15 +98,16 @@
 <div class="end" id="end">END</div>
 
 <script>
-const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
-const bawah = "makasi buat semuanya ya sat..\n\naku bikin ini bukan tanpa alasan, aku cuma pengen kamu tau aku bener bener menghargai semuanya..";
+
+const atas = "makasii ya ia, makasi buat semuanya...";
+const bawah = "aku bikin ini bukan tanpa alasan...";
 const ttd = "to satria\nby zia";
 
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
 const end = document.getElementById("end");
 
-function ketik(el, text, speed=38, cb){
+function ketik(el, text, speed=35, cb){
   let i = 0;
   el.innerHTML = "";
 
@@ -152,23 +124,30 @@ function ketik(el, text, speed=38, cb){
 function mulai(){
   start.style.display = "none";
 
-  /* 🔥 FIX AUDIO PALING PENTING */
+  // 🔥 FIX AUDIO PALING KUAT
   video.muted = false;
   video.volume = 1;
 
-  video.play().catch(() => {
-    video.muted = false;
-    video.play();
-  });
+  const playPromise = video.play();
 
-  ketik(document.getElementById("textAtas"), atas, 38, () => {
+  if(playPromise !== undefined){
+    playPromise.catch(() => {
+      // fallback kalau diblok
+      video.muted = false;
+      setTimeout(() => {
+        video.play();
+      }, 300);
+    });
+  }
+
+  ketik(document.getElementById("textAtas"), atas, 35, () => {
     setTimeout(() => {
 
-      ketik(document.getElementById("textBawah"), bawah, 38, () => {
+      ketik(document.getElementById("textBawah"), bawah, 35, () => {
         setTimeout(() => {
 
           ketik(document.getElementById("ttd"), ttd, 40, () => {
-            setTimeout(cinematicEnd, 3500);
+            setTimeout(endScene, 3000);
           });
 
         }, 500);
@@ -178,20 +157,21 @@ function mulai(){
   });
 }
 
-function cinematicEnd(){
+function endScene(){
+  document.querySelector(".video-box").style.opacity = 0;
   document.getElementById("textAtas").style.opacity = 0;
   document.getElementById("textBawah").style.opacity = 0;
   document.getElementById("ttd").style.opacity = 0;
-  document.querySelector(".video-box").style.opacity = 0;
 
   setTimeout(() => {
     end.classList.add("show");
-  }, 1500);
+  }, 1200);
 }
 
 function gamau(){
   document.getElementById("msg").style.display = "block";
 }
+
 </script>
 
 </body>
