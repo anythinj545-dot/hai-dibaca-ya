@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,7 +15,7 @@
     overflow: hidden;
   }
 
-  /* 🔥 FIX UTAMA CLICK BLOCKING */
+  /* 🔥 START OVERLAY (TIDAK BOLEH DIGANGGU) */
   .start {
     position: fixed;
     inset: 0;
@@ -24,29 +25,16 @@
     justify-content: center;
     align-items: center;
     color: #a5c9ff;
-    z-index: 999999;
-
-    /* penting banget */
-    pointer-events: auto;
-  }
-
-  .start * {
-    pointer-events: auto;
+    z-index: 9999;
   }
 
   .btn {
-    padding: 12px 22px;
+    padding: 10px 20px;
     margin: 8px;
     border-radius: 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
-
-    /* 🔥 FIX TOUCH HP */
-    pointer-events: auto;
-    touch-action: manipulation;
-    position: relative;
-    z-index: 9999999;
   }
 
   .lanjut {
@@ -60,12 +48,21 @@
     color: #a5c9ff;
   }
 
+  .msg {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #a5c9ff;
+    display: none;
+  }
+
+  /* 🔥 AREA KONTEN */
   .text, .bottom, .ttd {
     max-width: 260px;
     margin: auto;
     color: #a5c9ff;
     line-height: 1.9;
     word-wrap: break-word;
+    transition: 2s ease;
   }
 
   .text { font-size: 17px; font-weight: 700; min-height: 60px; }
@@ -77,6 +74,7 @@
     overflow: hidden;
     border-radius: 14px;
     display: inline-block;
+    transition: 2s ease;
   }
 
   video {
@@ -84,21 +82,11 @@
     transform: scale(1.25);
   }
 
-  /* 🔥 CINEMATIC BLUR SEMUA */
-  .cinematic {
-    animation: blurOut 2.5s forwards;
-  }
-
-  @keyframes blurOut {
-    0% { opacity: 1; filter: blur(0); transform: scale(1); }
-    100% { opacity: 0; filter: blur(18px); transform: scale(1.15); }
-  }
-
-  .msg {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #a5c9ff;
-    display: none;
+  /* 🔥 SAFE BLUR (HANYA KONTEN, BUKAN BODY) */
+  .blur-out {
+    opacity: 0;
+    filter: blur(18px);
+    transform: scale(1.1);
   }
 
   /* 🔥 END */
@@ -109,11 +97,11 @@
     align-items: center;
     justify-content: center;
     color: red;
-    font-size: 36px;
+    font-size: 38px;
     font-weight: bold;
     opacity: 0;
-    z-index: 9999999;
     transition: 1s ease;
+    z-index: 99999;
   }
 
   .end.show {
@@ -127,9 +115,8 @@
 <div class="start" id="startScreen">
   <h2>for u ❤️‍🩹</h2>
 
-  <!-- 🔥 FIX: pakai type button (WAJIB) -->
-  <button class="btn lanjut" id="btnLanjut" type="button">lanjut</button>
-  <button class="btn gamau" type="button" onclick="gamau()">gamau lanjut</button>
+  <button class="btn lanjut" onclick="mulai()">lanjut</button>
+  <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
 
   <div class="msg" id="msg">sih? bisane gmau lnjt!! 😡</div>
 </div>
@@ -155,9 +142,6 @@ const ttd = "to satria\nby zia";
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
 const end = document.getElementById("end");
-const btn = document.getElementById("btnLanjut");
-
-btn.addEventListener("click", mulai);
 
 function ketik(el, text, speed=38, cb){
   let i = 0;
@@ -188,7 +172,7 @@ function mulai(){
           ketik(document.getElementById("ttd"), ttd, 40, () => {
 
             setTimeout(() => {
-              triggerEnd();
+              cinematicEnd();
             }, 3500);
 
           });
@@ -200,11 +184,13 @@ function mulai(){
   });
 }
 
-function triggerEnd(){
-  document.getElementById("textAtas").classList.add("cinematic");
-  document.getElementById("textBawah").classList.add("cinematic");
-  document.getElementById("ttd").classList.add("cinematic");
-  document.getElementById("videoBox").classList.add("cinematic");
+function cinematicEnd(){
+
+  // 🔥 HANYA KONTEN YANG DI BLUR (TOMBOL AMAN)
+  document.getElementById("textAtas").classList.add("blur-out");
+  document.getElementById("textBawah").classList.add("blur-out");
+  document.getElementById("ttd").classList.add("blur-out");
+  document.getElementById("videoBox").classList.add("blur-out");
 
   setTimeout(() => {
     end.classList.add("show");
