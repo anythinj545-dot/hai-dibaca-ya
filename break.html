@@ -14,26 +14,30 @@
     overflow: hidden;
   }
 
-  /* 🔥 START OVERLAY (TIDAK BOLEH DIGANGGU) */
+  /* 🔥 START HARUS SIMPLE (INI KUNCI FIX) */
   .start {
     position: fixed;
     inset: 0;
     background: #000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #a5c9ff;
-    z-index: 9999;
+    z-index: 999999;
+    display: block;
+    padding-top: 35vh;
+    text-align: center;
   }
 
   .btn {
-    padding: 10px 20px;
-    margin: 8px;
+    padding: 12px 22px;
+    margin: 10px;
     border-radius: 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+
+    /* 🔥 WAJIB */
+    position: relative;
+    z-index: 9999999;
+    pointer-events: auto;
+    touch-action: manipulation;
   }
 
   .lanjut {
@@ -54,14 +58,12 @@
     display: none;
   }
 
-  /* 🔥 AREA KONTEN */
   .text, .bottom, .ttd {
     max-width: 260px;
     margin: auto;
     color: #a5c9ff;
     line-height: 1.9;
     word-wrap: break-word;
-    transition: 2s ease;
   }
 
   .text { font-size: 17px; font-weight: 700; min-height: 60px; }
@@ -73,7 +75,6 @@
     overflow: hidden;
     border-radius: 14px;
     display: inline-block;
-    transition: 2s ease;
   }
 
   video {
@@ -81,14 +82,6 @@
     transform: scale(1.25);
   }
 
-  /* 🔥 SAFE BLUR (HANYA KONTEN, BUKAN BODY) */
-  .blur-out {
-    opacity: 0;
-    filter: blur(18px);
-    transform: scale(1.1);
-  }
-
-  /* 🔥 END */
   .end {
     position: fixed;
     inset: 0;
@@ -96,7 +89,7 @@
     align-items: center;
     justify-content: center;
     color: red;
-    font-size: 38px;
+    font-size: 36px;
     font-weight: bold;
     opacity: 0;
     transition: 1s ease;
@@ -112,17 +105,19 @@
 <body>
 
 <div class="start" id="startScreen">
-  <h2>for u ❤️‍🩹</h2>
+
+  <h2 style="color:#a5c9ff;">for u ❤️‍🩹</h2>
 
   <button class="btn lanjut" onclick="mulai()">lanjut</button>
   <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
 
   <div class="msg" id="msg">sih? bisane gmau lnjt!! 😡</div>
+
 </div>
 
 <div class="text" id="textAtas"></div>
 
-<div class="video-box" id="videoBox">
+<div class="video-box">
   <video id="vid" playsinline preload="auto">
     <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
   </video>
@@ -158,7 +153,6 @@ function ketik(el, text, speed=38, cb){
 
 function mulai(){
   start.style.display = "none";
-
   video.muted = true;
   video.play().catch(()=>{});
 
@@ -169,11 +163,7 @@ function mulai(){
         setTimeout(() => {
 
           ketik(document.getElementById("ttd"), ttd, 40, () => {
-
-            setTimeout(() => {
-              cinematicEnd();
-            }, 3500);
-
+            setTimeout(cinematicEnd, 3500);
           });
 
         }, 500);
@@ -184,16 +174,14 @@ function mulai(){
 }
 
 function cinematicEnd(){
-
-  // 🔥 HANYA KONTEN YANG DI BLUR (TOMBOL AMAN)
-  document.getElementById("textAtas").classList.add("blur-out");
-  document.getElementById("textBawah").classList.add("blur-out");
-  document.getElementById("ttd").classList.add("blur-out");
-  document.getElementById("videoBox").classList.add("blur-out");
+  document.getElementById("textAtas").style.opacity = 0;
+  document.getElementById("textBawah").style.opacity = 0;
+  document.getElementById("ttd").style.opacity = 0;
+  document.querySelector(".video-box").style.opacity = 0;
 
   setTimeout(() => {
     end.classList.add("show");
-  }, 2000);
+  }, 1500);
 }
 
 function gamau(){
