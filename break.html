@@ -24,18 +24,6 @@
     align-items: center;
     color: #a5c9ff;
     z-index: 9999;
-
-    /* 🔥 FIX CLICK BLOCK ISSUE */
-    pointer-events: auto;
-  }
-
-  .start * {
-    pointer-events: auto;
-  }
-
-  .start h2 {
-    font-size: 20px;
-    margin-bottom: 20px;
   }
 
   .btn {
@@ -45,10 +33,6 @@
     font-size: 16px;
     border: none;
     cursor: pointer;
-
-    /* 🔥 FIX TOUCH DI HP */
-    pointer-events: auto;
-    touch-action: manipulation;
   }
 
   .lanjut {
@@ -70,24 +54,9 @@
     word-wrap: break-word;
   }
 
-  .text {
-    font-size: 17px;
-    font-weight: 700;
-    min-height: 60px;
-  }
-
-  .bottom {
-    margin-top: 25px;
-    font-size: 16px;
-    font-weight: 600;
-    min-height: 80px;
-  }
-
-  .ttd {
-    margin-top: 20px;
-    font-size: 14px;
-    opacity: 0.8;
-  }
+  .text { font-size: 17px; font-weight: 700; min-height: 60px; }
+  .bottom { margin-top: 25px; font-size: 16px; font-weight: 600; min-height: 80px; }
+  .ttd { margin-top: 20px; font-size: 14px; opacity: 0.8; }
 
   .video-box {
     margin-top: 25px;
@@ -101,15 +70,26 @@
     transform: scale(1.25);
   }
 
-  .fade-out {
-    animation: hilang 2.5s forwards;
+  /* 🔥 FULL SCREEN CINEMATIC EFFECT */
+  .cinematic {
+    animation: blurOut 2.5s forwards;
   }
 
-  @keyframes hilang {
-    to {
+  @keyframes blurOut {
+    0% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: scale(1);
+    }
+    60% {
+      opacity: 0.6;
+      filter: blur(8px);
+      transform: scale(1.05);
+    }
+    100% {
       opacity: 0;
-      filter: blur(12px);
-      transform: translateY(-50px);
+      filter: blur(20px);
+      transform: scale(1.2);
     }
   }
 
@@ -118,6 +98,25 @@
     font-size: 14px;
     color: #a5c9ff;
     display: none;
+  }
+
+  /* 🔥 END SCREEN */
+  .end {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-size: 36px;
+    font-weight: bold;
+    opacity: 0;
+    transition: 1s ease;
+    z-index: 99999;
+  }
+
+  .end.show {
+    opacity: 1;
   }
 </style>
 </head>
@@ -135,7 +134,7 @@
 
 <div class="text" id="textAtas"></div>
 
-<div class="video-box">
+<div class="video-box" id="videoBox">
   <video id="vid" playsinline preload="auto">
     <source src="https://raw.githubusercontent.com/anythinj545-dot/hai-dibaca-ya/main/IMG_3936.MOV">
   </video>
@@ -144,6 +143,8 @@
 <div class="bottom" id="textBawah"></div>
 <div class="ttd" id="ttd"></div>
 
+<div class="end" id="end">END</div>
+
 <script>
 const atas = "makasii ya ia , makasi buat semuanya, aku kira kitaa bakal bareng bareng selamanya, sampe akhirnya kita bener bener ga bisa bareng lagi.";
 const bawah = "makasi buat semuanya ya sat..\n\naku bikin semua ini bukan maksud apa apa, aku cuma excited banget sama ultah kamuu akuu seneng,\nselepas kamu disana gimana semoga kamu bisa menghargai usaha aku ini yaa , aku bikinnya berhari harii banget soalnya hemz..";
@@ -151,6 +152,8 @@ const ttd = "to satria\nby zia";
 
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
+const end = document.getElementById("end");
+const videoBox = document.getElementById("videoBox");
 
 function ketik(el, text, speed=38, callback){
   let i = 0;
@@ -182,26 +185,19 @@ function mulai(){
 
           ketik(document.getElementById("ttd"), ttd, 40, () => {
 
-            // 🔥 BIAR VIDEO TIDAK KELEBIHAN CEPAT END
+            // 🔥 FINAL CINEMATIC SEQUENCE
             setTimeout(() => {
-              video.classList.add("fade-out");
+
+              videoBox.classList.add("cinematic");
+              document.getElementById("textAtas").classList.add("cinematic");
+              document.getElementById("textBawah").classList.add("cinematic");
+              document.getElementById("ttd").classList.add("cinematic");
 
               setTimeout(() => {
-                const end = document.createElement("div");
-                end.innerHTML = "END";
-                end.style.position = "fixed";
-                end.style.inset = "0";
-                end.style.display = "flex";
-                end.style.alignItems = "center";
-                end.style.justifyContent = "center";
-                end.style.color = "red";
-                end.style.fontSize = "32px";
-                end.style.fontWeight = "bold";
-                document.body.appendChild(end);
+                end.classList.add("show");
+              }, 2000);
 
-              }, 1200);
-
-            }, 4000); // ⬅️ ini delay supaya teks masih kebaca dulu
+            }, 3500);
 
           });
 
