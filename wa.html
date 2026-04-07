@@ -54,7 +54,7 @@
       display: none;
     }
 
-    /* 🔥 PINK PASTEL */
+    /* 💗 PINK PASTEL */
     #passBox h2 {
       color: #ff9ecb;
     }
@@ -132,11 +132,14 @@
 </div>
 
 <script>
+// 🔐 PASSCODE SEKALI AJA
 function checkCode(){
   const code = document.getElementById("code").value;
   const error = document.getElementById("error");
 
   if(code === "9april"){
+    localStorage.setItem("unlock", "true");
+
     document.getElementById("passBox").style.display = "none";
     document.getElementById("mainContent").classList.remove("hidden");
   } else {
@@ -144,6 +147,7 @@ function checkCode(){
   }
 }
 
+// 🔥 FIX STEP
 let step = parseInt(localStorage.getItem("step")) || 1;
 
 const link1 = document.getElementById("link1");
@@ -152,7 +156,15 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
+// 🔁 LOAD
 window.onload = () => {
+
+  // 🔓 kalau sudah pernah buka → skip passcode
+  if(localStorage.getItem("unlock") === "true"){
+    document.getElementById("passBox").style.display = "none";
+    document.getElementById("mainContent").classList.remove("hidden");
+  }
+
   if(step >= 2){
     link2.classList.remove("locked");
     link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
@@ -168,6 +180,7 @@ window.onload = () => {
   }
 };
 
+// link 1
 link1.onclick = () => {
   step = 2;
   localStorage.setItem("step", step);
@@ -175,6 +188,7 @@ link1.onclick = () => {
   link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
 };
 
+// link 2
 link2.onclick = (e) => {
   if(step < 2){
     e.preventDefault();
@@ -187,6 +201,7 @@ link2.onclick = (e) => {
   }
 };
 
+// link 3
 link3.onclick = (e) => {
   if(step < 3){
     e.preventDefault();
@@ -201,4 +216,4 @@ link3.onclick = (e) => {
 </script>
 
 </body>
-      </html>
+  </html>
