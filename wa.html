@@ -61,13 +61,11 @@
     💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
-  <!-- 🔥 FIX: sudah bisa diklik -->
-  <a id="link2" href="https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html">
+  <a id="link2" class="locked" href="#">
     💌 im sorry n makasi ya 💌
   </a>
 
-  <!-- 🔥 FIX: sudah bisa diklik -->
-  <a id="link3" href="https://anythinj545-dot.github.io/hai-dibaca-ya/break.html">
+  <a id="link3" class="locked" href="#">
     end
   </a>
 
@@ -83,8 +81,8 @@
   </div>
 
 <script>
-let opened1 = false;
-let opened2 = false;
+// 🔥 FIX: step disimpan
+let step = parseInt(localStorage.getItem("step")) || 1;
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -92,27 +90,51 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
+// 🔁 balikin kondisi saat balik halaman
+window.onload = () => {
+  if(step >= 2){
+    link2.classList.remove("locked");
+    link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
+  }
+
+  if(step >= 3){
+    link3.classList.remove("locked");
+    link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
+  }
+
+  if(localStorage.getItem("end") === "true"){
+    endText.style.display = "block";
+  }
+};
+
 // klik link 1
 link1.onclick = () => {
-  opened1 = true;
+  step = 2;
+  localStorage.setItem("step", step); // 🔥 tambah
+  link2.classList.remove("locked");
+  link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
 };
 
 // klik link 2
 link2.onclick = (e) => {
-  if(!opened1){
+  if(step < 2){
     e.preventDefault();
     warn.style.display = "block";
   } else {
-    opened2 = true;
+    step = 3;
+    localStorage.setItem("step", step); // 🔥 tambah
+    link3.classList.remove("locked");
+    link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
   }
 };
 
 // klik link 3
 link3.onclick = (e) => {
-  if(!opened1 || !opened2){
+  if(step < 3){
     e.preventDefault();
     warn.style.display = "block";
   } else {
+    localStorage.setItem("end", "true"); // 🔥 biar end ga ilang
     setTimeout(() => {
       endText.style.display = "block";
     }, 500);
