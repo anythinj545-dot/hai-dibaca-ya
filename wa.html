@@ -10,6 +10,16 @@
       padding: 50px 20px;
     }
 
+    h2 {
+      color: #7aa7ff;
+      font-weight: 700;
+    }
+
+    p {
+      color: #7aa7ff;
+      font-size: 16px;
+    }
+
     a {
       display: block;
       margin: 20px;
@@ -19,6 +29,7 @@
       font-weight: 600;
       opacity: 0.4;
       pointer-events: none;
+      transition: 0.3s;
     }
 
     a.active {
@@ -33,6 +44,7 @@
       display: none;
     }
 
+    /* 🌸 ENDING PINK */
     .end {
       margin-top: 40px;
       display: none;
@@ -42,34 +54,47 @@
       line-height: 1.8;
     }
 
+    /* 💗 WA BUTTON + HEARTBEAT */
     .wa-button {
       display: inline-block;
       margin-top: 20px;
       padding: 12px 18px;
       background: #ff8fb1;
       color: white;
-      border-radius: 10px;
+      border-radius: 12px;
       text-decoration: none;
       font-size: 16px;
       font-weight: 600;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%   { transform: scale(1); }
+      25%  { transform: scale(1.08); }
+      40%  { transform: scale(1); }
+      60%  { transform: scale(1.12); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 
 <body>
 
-<!-- 🔵 BAGIAN AWAL -->
-<div id="startSection">
+  <h2>💖 Hai, dibaca ya</h2>
+  <p>baca satu satu:</p>
 
+  <!-- LINK 1 -->
   <a id="link1" class="active"
      href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2">
     💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
+  <!-- LINK 2 -->
   <a id="link2" href="#">
     💌 im sorry n makasi ya 💌
   </a>
 
+  <!-- LINK 3 -->
   <a id="link3" href="#">
     end
   </a>
@@ -78,25 +103,23 @@
     kan uda dibilang satu satu jangan langsungg yang lain hemz..
   </div>
 
-</div>
+  <!-- 🌸 ENDING -->
+  <div class="end" id="endText">
+    HAPPY BIRTHDAY 🎂<br><br>
+    makasi uda liat dari awal sampe akhir ya<br><br>
 
-<!-- 🌸 ENDING -->
-<div class="end" id="endText">
-  HAPPY BIRTHDAY 🎂<br><br>
-  makasi uda liat dari awal sampe akhir ya<br><br>
+    <a class="wa-button"
+       href="https://wa.me/6285642180294"
+       target="_blank">
+      contact me
+    </a>
 
-  <a class="wa-button" href="https://wa.me/6285642180294" target="_blank">
-    contact me
-  </a>
-
-  <br><br>
-  by zia to satria
-</div>
+    <br><br>
+    by zia to satria
+  </div>
 
 <script>
 let step = 1;
-
-const startSection = document.getElementById("startSection");
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -104,14 +127,14 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
-// link 1
+// link 1 → unlock 2
 link1.onclick = () => {
   step = 2;
   link2.classList.add("active");
   link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
 };
 
-// link 2
+// link 2 → unlock 3
 link2.onclick = (e) => {
   if(step < 2){
     e.preventDefault();
@@ -123,14 +146,13 @@ link2.onclick = (e) => {
   }
 };
 
-// link 3 → ending + HAPUS BAGIAN AWAL
+// link 3 → show ending
 link3.onclick = (e) => {
   if(step < 3){
     e.preventDefault();
     warn.style.display = "block";
   } else {
     setTimeout(() => {
-      startSection.style.display = "none"; // 🔥 INI KUNCINYA
       endText.style.display = "block";
       window.scrollTo(0, 0);
     }, 500);
