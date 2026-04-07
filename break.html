@@ -14,6 +14,7 @@
     overflow: hidden;
   }
 
+  /* 🔥 FIX UTAMA CLICK BLOCKING */
   .start {
     position: fixed;
     inset: 0;
@@ -23,16 +24,29 @@
     justify-content: center;
     align-items: center;
     color: #a5c9ff;
-    z-index: 9999;
+    z-index: 999999;
+
+    /* penting banget */
+    pointer-events: auto;
+  }
+
+  .start * {
+    pointer-events: auto;
   }
 
   .btn {
-    padding: 10px 20px;
+    padding: 12px 22px;
     margin: 8px;
     border-radius: 20px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+
+    /* 🔥 FIX TOUCH HP */
+    pointer-events: auto;
+    touch-action: manipulation;
+    position: relative;
+    z-index: 9999999;
   }
 
   .lanjut {
@@ -70,27 +84,14 @@
     transform: scale(1.25);
   }
 
-  /* 🔥 FULL SCREEN CINEMATIC EFFECT */
+  /* 🔥 CINEMATIC BLUR SEMUA */
   .cinematic {
     animation: blurOut 2.5s forwards;
   }
 
   @keyframes blurOut {
-    0% {
-      opacity: 1;
-      filter: blur(0px);
-      transform: scale(1);
-    }
-    60% {
-      opacity: 0.6;
-      filter: blur(8px);
-      transform: scale(1.05);
-    }
-    100% {
-      opacity: 0;
-      filter: blur(20px);
-      transform: scale(1.2);
-    }
+    0% { opacity: 1; filter: blur(0); transform: scale(1); }
+    100% { opacity: 0; filter: blur(18px); transform: scale(1.15); }
   }
 
   .msg {
@@ -100,7 +101,7 @@
     display: none;
   }
 
-  /* 🔥 END SCREEN */
+  /* 🔥 END */
   .end {
     position: fixed;
     inset: 0;
@@ -111,8 +112,8 @@
     font-size: 36px;
     font-weight: bold;
     opacity: 0;
+    z-index: 9999999;
     transition: 1s ease;
-    z-index: 99999;
   }
 
   .end.show {
@@ -126,8 +127,9 @@
 <div class="start" id="startScreen">
   <h2>for u ❤️‍🩹</h2>
 
-  <button class="btn lanjut" onclick="mulai()">lanjut</button>
-  <button class="btn gamau" onclick="gamau()">gamau lanjut</button>
+  <!-- 🔥 FIX: pakai type button (WAJIB) -->
+  <button class="btn lanjut" id="btnLanjut" type="button">lanjut</button>
+  <button class="btn gamau" type="button" onclick="gamau()">gamau lanjut</button>
 
   <div class="msg" id="msg">sih? bisane gmau lnjt!! 😡</div>
 </div>
@@ -153,9 +155,11 @@ const ttd = "to satria\nby zia";
 const start = document.getElementById("startScreen");
 const video = document.getElementById("vid");
 const end = document.getElementById("end");
-const videoBox = document.getElementById("videoBox");
+const btn = document.getElementById("btnLanjut");
 
-function ketik(el, text, speed=38, callback){
+btn.addEventListener("click", mulai);
+
+function ketik(el, text, speed=38, cb){
   let i = 0;
   el.innerHTML = "";
 
@@ -164,9 +168,7 @@ function ketik(el, text, speed=38, callback){
       el.innerHTML += text[i] === "\n" ? "<br>" : text[i];
       i++;
       setTimeout(run, speed);
-    } else {
-      if(callback) callback();
-    }
+    } else if(cb) cb();
   }
   run();
 }
@@ -185,18 +187,8 @@ function mulai(){
 
           ketik(document.getElementById("ttd"), ttd, 40, () => {
 
-            // 🔥 FINAL CINEMATIC SEQUENCE
             setTimeout(() => {
-
-              videoBox.classList.add("cinematic");
-              document.getElementById("textAtas").classList.add("cinematic");
-              document.getElementById("textBawah").classList.add("cinematic");
-              document.getElementById("ttd").classList.add("cinematic");
-
-              setTimeout(() => {
-                end.classList.add("show");
-              }, 2000);
-
+              triggerEnd();
             }, 3500);
 
           });
@@ -206,6 +198,17 @@ function mulai(){
 
     }, 500);
   });
+}
+
+function triggerEnd(){
+  document.getElementById("textAtas").classList.add("cinematic");
+  document.getElementById("textBawah").classList.add("cinematic");
+  document.getElementById("ttd").classList.add("cinematic");
+  document.getElementById("videoBox").classList.add("cinematic");
+
+  setTimeout(() => {
+    end.classList.add("show");
+  }, 2000);
 }
 
 function gamau(){
