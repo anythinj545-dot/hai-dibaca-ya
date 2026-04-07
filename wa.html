@@ -1,153 +1,90 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-<meta charset="UTF-8">
-<title>for you 💙</title>
+  <title>Hai kamu 💌</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: 'Segoe UI', sans-serif;
+      background: #ffffff;
+      padding: 50px 20px;
+    }
 
-<style>
-body {
-  font-family: sans-serif;
-  background: #0d1b2a;
-  text-align: center;
-  padding: 40px;
-  color: white;
-}
+    h2 {
+      color: #7aa7ff;
+      font-weight: 700;
+    }
 
-.hidden { display: none; }
+    p {
+      color: #7aa7ff;
+      font-size: 16px;
+    }
 
-.pass-box input {
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  margin-top: 10px;
-}
+    a {
+      display: block;
+      margin: 20px;
+      font-size: 18px;
+      color: #7aa7ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
 
-.pass-box button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  background: #7aa7ff;
-  color: white;
-}
+    .locked {
+      opacity: 0.4;
+      pointer-events: none;
+    }
 
-a {
-  display: block;
-  margin: 20px;
-  padding: 12px;
-  border-radius: 12px;
-  background: #1b263b;
-  color: white;
-  text-decoration: none;
-  opacity: 0.4;
-  pointer-events: none;
-}
+    .warning {
+      color: #7aa7ff;
+      font-size: 14px;
+      margin-top: 20px;
+      display: none;
+    }
 
-a.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.warning {
-  display: none;
-  color: pink;
-}
-
-.end {
-  display: none;
-  margin-top: 40px;
-}
-
-/* 💚 WA BUTTON */
-.wa-button {
-  display: inline-block;
-  padding: 10px 20px;
-  background: #25D366;
-  border-radius: 10px;
-  color: white;
-  text-decoration: none;
-
-  animation: heartbeat 1.2s infinite;
-}
-
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  25% { transform: scale(1.08); }
-  40% { transform: scale(1); }
-  60% { transform: scale(1.12); }
-  100% { transform: scale(1); }
-}
-</style>
+    .end {
+      margin-top: 40px;
+      display: none;
+      color: #7aa7ff;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.8;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- 🔐 PASSCODE -->
-<div class="pass-box" id="passBox">
-  <h3 style="color:#7aa7ff;">masukin passcode 💙</h3>
-  <input id="code" placeholder="tangal lahir aja">
-  <br>
-  <button onclick="checkCode()">masuk</button>
-  <div class="error" id="error" style="display:none;">
-    tgl lhr km st ms lupa,gsh pake spasi!
-  </div>
-</div>
+  <h2>💖 Hai, dibaca ya</h2>
+  <p>baca satu satu:</p>
 
-<!-- 🔵 CONTENT -->
-<div id="mainContent" class="hidden">
-
-  <a id="link1" class="active"
-     href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2">
+  <a id="link1" href="https://anythinj545-dot.github.io/hai-dibaca-ya/Ilys.html?v=2">
     💌🎂 inii duluu yang di klik y 🎂💌
   </a>
 
-  <a id="link2" href="#">💌 link kedua ,im sorry n makasi ya 💌</a>
-
-  <a id="link3" href="#">link terakhir,end</a>
-
-  <div class="warning" id="warn">jangan loncat ya 😌</div>
-
-</div>
-
-<!-- 🌸 ENDING -->
-<div class="end" id="endText">
-  HAPPY BIRTHDAY 🎂<br><br>
-  makasi uda liat dari awal sampe akhir ya<br><br>
-
-  <a class="wa-button"
-     href="https://wa.me/6285642180294?text=hai%20aku%20udah%20liat%20semuanya%20makasi%20yaa%20💙"
-     target="_blank">
-    contact me
+  <!-- 🔥 FIX: sudah bisa diklik -->
+  <a id="link2" href="https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html">
+    💌 im sorry n makasi ya 💌
   </a>
 
-  <br><br>
-  by zia 
-  to satria
-</div>
+  <!-- 🔥 FIX: sudah bisa diklik -->
+  <a id="link3" href="https://anythinj545-dot.github.io/hai-dibaca-ya/break.html">
+    end
+  </a>
+
+  <div class="warning" id="warn">
+    kan uda dibilang satu satu jangan langsungg yang lain hemz..
+  </div>
+
+  <div class="end" id="endText">
+    HAPPY BIRTHDAY 🎂<br><br>
+    makasi uda liat dari awal sampe akhir ya<br><br>
+    by zia<br>
+    to satria
+  </div>
 
 <script>
-// reset biar ga langsung kebuka semua
-if(localStorage.getItem("step") === "3" && localStorage.getItem("end") === "true"){
-  localStorage.removeItem("step");
-  localStorage.removeItem("end");
-}
-
-let step = parseInt(localStorage.getItem("step")) || 1;
-
-// 🔐 PASSCODE
-function checkCode(){
-  const code = document.getElementById("code").value;
-  const error = document.getElementById("error");
-
-  if(code === "9april"){
-    sessionStorage.setItem("unlock", "true");
-
-    document.getElementById("passBox").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
-  } else {
-    error.style.display = "block";
-  }
-}
+let opened1 = false;
+let opened2 = false;
 
 const link1 = document.getElementById("link1");
 const link2 = document.getElementById("link2");
@@ -155,61 +92,33 @@ const link3 = document.getElementById("link3");
 const warn = document.getElementById("warn");
 const endText = document.getElementById("endText");
 
-// 🔁 LOAD
-window.onload = () => {
-  if(sessionStorage.getItem("unlock") === "true"){
-    document.getElementById("passBox").style.display = "none";
-    document.getElementById("mainContent").classList.remove("hidden");
-  }
-
-  if(step >= 2){
-    link2.classList.add("active");
-    link2.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/Jia.html";
-  }
-
-  if(step >= 3){
-    link3.classList.add("active");
-    link3.href = "https://anythinj545-dot.github.io/hai-dibaca-ya/break.html";
-  }
-
-  if(localStorage.getItem("end") === "true"){
-    endText.style.display = "block";
-  }
-};
-
-// link 1
+// klik link 1
 link1.onclick = () => {
-  step = 2;
-  localStorage.setItem("step", step);
+  opened1 = true;
 };
 
-// link 2
+// klik link 2
 link2.onclick = (e) => {
-  if(step < 2){
+  if(!opened1){
     e.preventDefault();
     warn.style.display = "block";
   } else {
-    step = 3;
-    localStorage.setItem("step", step);
+    opened2 = true;
   }
 };
 
-// link 3
+// klik link 3
 link3.onclick = (e) => {
-  if(step < 3){
+  if(!opened1 || !opened2){
     e.preventDefault();
     warn.style.display = "block";
   } else {
-    localStorage.setItem("end", "true");
-
-    endText.style.display = "block";
-
     setTimeout(() => {
-      endText.scrollIntoView({ behavior: "smooth" });
-    }, 300);
+      endText.style.display = "block";
+    }, 500);
   }
 };
 </script>
 
 </body>
-  </html>
+</html>
